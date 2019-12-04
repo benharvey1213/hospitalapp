@@ -134,7 +134,8 @@ C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\bin\Antlr3.Runtime.pdb
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\obj\Debug\HospitalApp.csprojAssemblyReference.cache
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\obj\Debug\HospitalApp.csproj.CopyComplete
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\obj\Debug\HospitalApp.dll
 C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\obj\Debug\HospitalApp.pdb
+C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\bin\EntityFramework.dll
+C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\bin\EntityFramework.xml
