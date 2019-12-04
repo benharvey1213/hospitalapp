@@ -2,13 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h4>Welcome, (name go here)</h4>
     <p>
-        <asp:Button ID="Button1" runat="server" Text="Manage Appointments" Width="293px" />
+        <asp:Button ID="Button1" runat="server" Text="Manage Appointments" Width="293px" OnClick="Button1_Click" />
     </p>
     <p>
         <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Medication And Test Results" Width="293px" />
     </p>
     <p>
-        <asp:Button ID="Button3" runat="server" Text="Messages" Width="293px" />
+        <asp:Button ID="Button3" runat="server" Text="Messages" Width="293px" OnClick="Button3_Click" />
     </p>
     <p>
         &nbsp;</p>
