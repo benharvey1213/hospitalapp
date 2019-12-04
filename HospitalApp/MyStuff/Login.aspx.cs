@@ -58,11 +58,21 @@ namespace HospitalApp.MyStuff
                 TextBox2.Text = "";
                 ErrorPlaceholder.Text = "Sorry, no user found with those credentials";
                 Debug.WriteLine("no users");
-            } else
+            } 
+            else
             {
                 // log in success
-                var user = userQuery.First();
-                Debug.WriteLine(user.UserLoginName);
+
+                var nameQuery =
+                    from Patients in dbContext.Patients
+                    where Patients.UserLoginName == username
+                    select Patients.FirstName;
+
+                Response.Cookies["name"].Value = nameQuery.First();
+                Response.Cookies["username"].Value = username;
+
+                // Debug.WriteLine(Request.Cookies["name"].Value);
+
                 FormsAuthentication.RedirectFromLoginPage(username, true);
             }
 

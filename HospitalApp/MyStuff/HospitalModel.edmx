@@ -203,7 +203,7 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
             <PropertyRef Name="TestID" />
           </Key>
           <Property Name="PatientID" Type="Int32" Nullable="false" />
-          <Property Name="TestID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TestID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Appointments" EntityType="Self.Appointment" />

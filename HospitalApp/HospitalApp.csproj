@@ -152,8 +152,12 @@
       <LastGenOutput>HospitalModel.cs</LastGenOutput>
     </Content>
     <Content Include="MyStuff\Login.aspx" />
+    <Content Include="MyStuff\Messages.aspx" />
     <Content Include="MyStuff\Patient.aspx" />
     <Content Include="MyStuff\CreateAccount.aspx" />
+    <Content Include="MyStuff\PatientAppointments.aspx" />
+    <Content Include="MyStuff\PatientMedications.aspx" />
+    <Content Include="MyStuff\PatientTests.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -267,6 +271,13 @@
     <Compile Include="MyStuff\Message.cs">
       <DependentUpon>HospitalModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyStuff\Messages.aspx.cs">
+      <DependentUpon>Messages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\Messages.aspx.designer.cs">
+      <DependentUpon>Messages.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MyStuff\Patient.aspx.cs">
       <DependentUpon>Patient.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -283,6 +294,27 @@
     </Compile>
     <Compile Include="MyStuff\Patient.cs">
       <DependentUpon>HospitalModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyStuff\PatientAppointments.aspx.cs">
+      <DependentUpon>PatientAppointments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\PatientAppointments.aspx.designer.cs">
+      <DependentUpon>PatientAppointments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyStuff\PatientMedications.aspx.cs">
+      <DependentUpon>PatientMedications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\PatientMedications.aspx.designer.cs">
+      <DependentUpon>PatientMedications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyStuff\PatientTests.aspx.cs">
+      <DependentUpon>PatientTests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\PatientTests.aspx.designer.cs">
+      <DependentUpon>PatientTests.aspx</DependentUpon>
     </Compile>
     <Compile Include="MyStuff\Test.cs">
       <DependentUpon>HospitalModel.tt</DependentUpon>

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\benha\Desktop\HospitalApp-20191203T231619Z-001\HospitalApp\HospitalApp\MyStuff\HospitalModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\benha\Desktop\repos\alive\hospital-app\HospitalApp\MyStuff\HospitalModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
