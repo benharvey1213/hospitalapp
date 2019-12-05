@@ -29,7 +29,7 @@
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\SOURCE\REPOS\HOSPITALAPP\HOSPITALAPP\HOSPITALDB.MDF.dbo.MedicationPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.dbo.MedicationPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MedicationPairs">
           <Key>
             <PropertyRef Name="PatientID" />
@@ -69,14 +69,14 @@ warning 6002: The table/view 'C:\USERS\BENHA\SOURCE\REPOS\HOSPITALAPP\HOSPITALAP
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\SOURCE\REPOS\HOSPITALAPP\HOSPITALAPP\HOSPITALDB.MDF.dbo.TestPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.dbo.TestPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TestPairs">
           <Key>
             <PropertyRef Name="PatientID" />
             <PropertyRef Name="TestID" />
           </Key>
           <Property Name="PatientID" Type="int" Nullable="false" />
-          <Property Name="TestID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TestID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tests">
           <Key>
