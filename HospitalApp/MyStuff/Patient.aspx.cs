@@ -17,25 +17,25 @@ namespace HospitalApp.MyStuff
         protected void Button1_Click(object sender, EventArgs e)
         {
             // appointments
-            Response.Redirect("/MyStuff/PatientAppointments.aspx");
+            Response.Redirect("/MyStuff/PatientAppointments.aspx", false);
         }
 
         protected void Button2_Click(object sender, EventArgs e)
         {
             // medications
-            Response.Redirect("/MyStuff/PatientMedications.aspx");
+            Response.Redirect("/MyStuff/PatientMedications.aspx", false);
         }
 
         protected void Button3_Click(object sender, EventArgs e)
         {
             // test results
-            Response.Redirect("/MyStuff/PatientTests.aspx");
+            Response.Redirect("/MyStuff/PatientTests.aspx", false);
         }
 
         protected void Button4_Click(object sender, EventArgs e)
         {
             // messages
-            Response.Redirect("/MyStuff/Messages.aspx");
+            Response.Redirect("/MyStuff/Messages.aspx", false);
         }
     }
 }

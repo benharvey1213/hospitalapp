@@ -71,9 +71,15 @@ namespace HospitalApp.MyStuff
                 Response.Cookies["name"].Value = nameQuery.First();
                 Response.Cookies["username"].Value = username;
 
-                // Debug.WriteLine(Request.Cookies["name"].Value);
-
-                FormsAuthentication.RedirectFromLoginPage(username, true);
+                Debug.WriteLine(Request.Cookies["redirectedFrom"].Value);
+                try
+                {
+                    Response.Redirect(Response.Cookies["redirectedFrom"].Value.ToString(), false);
+                }
+                catch
+                {
+                    FormsAuthentication.RedirectFromLoginPage(username, true);
+                }
             }
 
 
