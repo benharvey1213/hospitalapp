@@ -13,8 +13,18 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string name = Response.Cookies["name"].Value;
-            string username = Response.Cookies["username"].Value;
+            string username = null;
+            string name = null;
+            try
+            {
+                username = Request.Cookies["username"].Value;
+                name = Request.Cookies["name"].Value;
+            }
+            catch
+            {
+                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
+                Response.Redirect("/MyStuff/Login.aspx", false);
+            }
 
             NameLabel.Text = name + ".";
 
@@ -24,7 +34,7 @@ namespace HospitalApp.MyStuff
                 join test in dbcontext.Tests on testPair.TestID equals test.TestID
                 join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
                 where patient.UserLoginName == username
-                select new { Date = test.TestDate , Doctor =  doctor.DoctorID, Results = test.TestResults};
+                select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
 
             GridView1.DataSource = testsQuery.ToList();
             GridView1.DataBind();

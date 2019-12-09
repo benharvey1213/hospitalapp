@@ -12,4 +12,6 @@
     </p>
     <p>
         &nbsp;</p>
+        <p><a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg">Back</a>&nbsp; </p>
+    <p>&nbsp;</p>
 </asp:Content>
