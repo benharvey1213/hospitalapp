@@ -116,9 +116,9 @@ namespace HospitalApp.MyStuff
 
         protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConfirmLabel.Text = "Make an appointment with " + GridView2.SelectedValue + " on " +
-                Calendar1.SelectedDate.Month + " " + Calendar1.SelectedDate.Day + " at " +
-                GridView3.SelectedValue + "?";
+            ConfirmLabel.Text = "Make an appointment with " + GridView2.SelectedRow.RowIndex.ToString() + " on " +
+                Calendar1.SelectedDate.Month + "/" + Calendar1.SelectedDate.Day + " at " +
+                GridView3.Rows[GridView3.SelectedRow.RowIndex] + "?";
         }
     }
 }
