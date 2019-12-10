@@ -34,7 +34,7 @@ namespace HospitalApp.MyStuff
                 join test in dbcontext.Tests on testPair.TestID equals test.TestID
                 join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
                 where patient.UserLoginName == username
-                select new { Date = test.TestDate , Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults};
+                select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
 
             GridView1.DataSource = testsQuery.ToList();
             GridView1.DataBind();

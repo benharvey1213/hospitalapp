@@ -12,6 +12,7 @@
     </p>
     <p>
         &nbsp;</p>
-        <p><a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg">Back</a>&nbsp; </p>
+        <div align="center">&nbsp; <a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg">Back</a></div>
+    <p>&nbsp;</p>
     <p>&nbsp;</p>
 </asp:Content>

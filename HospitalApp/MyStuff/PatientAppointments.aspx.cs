@@ -27,7 +27,6 @@ namespace HospitalApp.MyStuff
 
             NameLabel.Text = name + ".";
 
-            // this is the medication query, change this to appointments, idk why I did this
             var appointmentQuery =
                 from appointment in dbcontext.Appointments
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID

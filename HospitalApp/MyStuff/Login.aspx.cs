@@ -68,18 +68,27 @@ namespace HospitalApp.MyStuff
                     where Patients.UserLoginName == username
                     select Patients.FirstName;
 
-                Response.Cookies["name"].Value = nameQuery.First();
-                Response.Cookies["username"].Value = username;
-
-                Debug.WriteLine(Request.Cookies["redirectedFrom"].Value);
-                try
+                if (nameQuery.Count() > 0)
                 {
-                    Response.Redirect(Response.Cookies["redirectedFrom"].Value.ToString(), false);
-                }
-                catch
-                {
+                    Response.Cookies["name"].Value = nameQuery.First();
+                    Response.Cookies["username"].Value = username;
                     FormsAuthentication.RedirectFromLoginPage(username, true);
+                    return;
                 }
+
+                var nameQuery2 =
+                    from doctor in dbContext.Doctors
+                    where doctor.UserLoginName == username
+                    select doctor.LastName;
+
+                if (nameQuery2.Count() > 0)
+                {
+                    Response.Cookies["name"].Value = "Dr. " + nameQuery2.First();
+                    Response.Cookies["username"].Value = username;
+                    FormsAuthentication.RedirectFromLoginPage(username, true);
+                    return;
+                }
+
             }
 
 
