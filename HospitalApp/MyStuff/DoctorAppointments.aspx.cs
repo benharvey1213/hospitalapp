@@ -66,5 +66,59 @@ namespace HospitalApp.MyStuff
 
             // GridView1.Rows[GridView1.SelectedIndex].BackColor = Color.Red;
         }
+
+        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+        {
+            DateTime selected = Calendar1.SelectedDate;
+
+            var timeQuery =
+                from appointment in dbcontext.Appointments
+                join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
+                where doctor.UserLoginName == username /*&& appointment.Time.Date == Calendar1.SelectedDate*/
+                select new { Time = appointment.Time };
+
+
+            if (timeQuery.Count() == 0)
+            {
+                return;
+            }
+
+            List<string> avaliableTimes = new List<string>();
+
+            for (int i = 8; i < 17; i++)
+            {
+                if (i <= 11)
+                {
+                    avaliableTimes.Add(i + ":00 AM");
+                }
+                else if (i == 12)
+                {
+                    avaliableTimes.Add(i + ":00 PM");
+                }
+                else
+                {
+                    avaliableTimes.Add((i - 12) + ":00 PM");
+                }
+            }
+
+
+            // populate times
+            // GridView3.DataSource = timeQuery.ToList();
+            GridView3.DataSource = avaliableTimes;
+            GridView3.DataBind();
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfirmLabel.Text = "Make an appointment with " + GridView2.SelectedValue + " on " +
+                Calendar1.SelectedDate.Month + " " + Calendar1.SelectedDate.Day + " at " +
+                GridView3.SelectedValue + "?";
+        }
     }
 }

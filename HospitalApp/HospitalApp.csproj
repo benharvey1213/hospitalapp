@@ -136,6 +136,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HospitalDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="MyStuff\DoctorAppointments.aspx" />
     <Content Include="MyStuff\HospitalDBModel.edmx.diagram">
       <DependentUpon>HospitalDBModel.edmx</DependentUpon>
     </Content>
@@ -239,6 +240,13 @@
     <Compile Include="MyStuff\Doctor.cs">
       <DependentUpon>HospitalDBModel.tt</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\DoctorAppointments.aspx.cs">
+      <DependentUpon>DoctorAppointments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyStuff\DoctorAppointments.aspx.designer.cs">
+      <DependentUpon>DoctorAppointments.aspx</DependentUpon>
     </Compile>
     <Compile Include="MyStuff\HospitalDBModel.Context.cs">
       <AutoGen>True</AutoGen>

@@ -5,6 +5,10 @@
     <p>
         Make a new appointment</p>
     <p>
+        &nbsp;</p>
+    <p>
+        Search for a Patient</p>
+    <p>
         
     <asp:textbox runat="server" id="inputfield" />
         &nbsp;</p>
@@ -24,6 +28,35 @@
     </p>
     <p>
         &nbsp;</p>
+    <p>
+        Select a Date</p>
+    <div style="width: 370px; margin: 0 auto;">
+        <asp:Calendar ID="Calendar1" runat="server" Height="179px" Width="370px" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>
+    </div>
+    <p>
+        &nbsp;</p>
+    <p>
+        &nbsp;</p>
+    <p>
+        Select a Time</p>
+    <p>
+        <asp:GridView ID="GridView3" HorizontalAlign="Center" runat="server" OnSelectedIndexChanged="GridView3_SelectedIndexChanged">
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+                <%--<asp:BoundField DataField="Time" HeaderText="Time" />--%>
+            </Columns>
+        </asp:GridView>
+    </p>
+    <p>
+        &nbsp;</p>
+    <p>
+        </p>
+    <p>
+        <asp:Label ID="ConfirmLabel" runat="server"></asp:Label>
+    </p>
+    <p>
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Confirm Appointment" />
+    </p>
     <p>
         &nbsp;</p>
     <p>
