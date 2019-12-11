@@ -14,6 +14,14 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            buttonTime.Visible = false;
+            buttonSearch.Visible = false;
+            buttonCalendar.Visible = false;
+            calendarDiv.Visible = false;
+            timeDiv.Visible = false;
+            confirm.Visible = false;
+            searchDiv.Visible = false;
+
             string name = null;
             try
             {
@@ -49,6 +57,8 @@ namespace HospitalApp.MyStuff
 
         protected void searchButton_Click(object sender, EventArgs e)
         {
+            searchDiv.Visible = true;
+
             var patientQuery =
                 from patient in dbcontext.Patients
                 where patient.UserLoginName.Contains(inputfield.Text)
@@ -62,13 +72,17 @@ namespace HospitalApp.MyStuff
 
         protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // GridView1.SelectedRow.BackColor = System.Drawing.Color.White;
-
-            // GridView1.Rows[GridView1.SelectedIndex].BackColor = Color.Red;
+            calendarDiv.Visible = true;
+            searchDiv.Visible = false;
+            buttonSearch.Visible = true;
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
+            buttonSearch.Visible = true;
+            buttonCalendar.Visible = true;
+            timeDiv.Visible = true;
+
             DateTime selected = Calendar1.SelectedDate;
 
             var timeQuery =
@@ -116,9 +130,31 @@ namespace HospitalApp.MyStuff
 
         protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ConfirmLabel.Text = "Make an appointment with " + GridView2.SelectedRow.RowIndex.ToString() + " on " +
+            buttonSearch.Visible = true;
+            buttonCalendar.Visible = true;
+            buttonTime.Visible = true;
+
+            timeDiv.Visible = false;
+
+            confirm.Visible = true;
+
+            ConfirmLabel.Text = "Make an appointment with " + GridView2.Rows[GridView2.SelectedRow.RowIndex].Cells[1].Text + " on " +
                 Calendar1.SelectedDate.Month + "/" + Calendar1.SelectedDate.Day + " at " +
-                GridView3.Rows[GridView3.SelectedRow.RowIndex] + "?";
+                GridView3.Rows[GridView3.SelectedRow.RowIndex].Cells[1].Text + "?";
+        }
+
+        protected void btnNewAppointment_Click(object sender, EventArgs e)
+        {
+            btnNewAppointment.Visible = false;
+            searchDiv.Visible = true;
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            searchDiv.Visible = true;
+            btnSearch.Visible = false;
+            calendarDiv.Visible = false;
+            //btnCalendar.Visible = true;
         }
     }
 }
