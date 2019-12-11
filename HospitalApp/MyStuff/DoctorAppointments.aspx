@@ -42,8 +42,7 @@
         <p>
             <asp:Button ID="searchButton" runat="server" Text="Search" OnClick="searchButton_Click" Width="157px" />
         </p>
-<%--        <p>
-            &nbsp;</p>--%>
+        <%--<asp:BoundField DataField="Time" HeaderText="Time" />--%>
         <p>
             <asp:GridView ID="GridView2"  HorizontalAlign="Center" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
                 <Columns>
@@ -52,12 +51,12 @@
                 </Columns>
             </asp:GridView>
         </p>
-<%--        <p>
+        <%--        <p>
             &nbsp;</p>--%>
     </div>
     <div id="buttonCalendar" runat="server">
         <p>
-            <asp:Button ID="btnCalendar" runat="server" Text="Show Date Selection" />
+            <asp:Button ID="btnCalendar" runat="server" Text="Show Date Selection" OnClick="btnCalendar_Click" />
         </p>
     </div>
     <div id="calendarDiv" runat="server">
@@ -73,7 +72,7 @@
     </div>
     <div id="buttonTime" runat="server">
         <p>
-            <asp:Button ID="btnTime" runat="server" Text="Show Time Selection" />
+            <asp:Button ID="btnTime" runat="server" Text="Show Time Selection" OnClick="btnTime_Click" />
         </p>
     </div>
     <div id="timeDiv" runat="server">
@@ -92,10 +91,30 @@
         <p>
             </p>
     </div>
-    <div id="confirm" runat="server">
-        <p>
-        &nbsp;</p>
 
+    <div id="buttonPurpose" runat="server">
+        <p>
+            <asp:Button ID="btnPurpose" runat="server" Text="Show Purpose" OnClick="btnPurpose_Click1"/>
+        </p>
+    </div>
+
+    <div id="purposeDiv" runat="server">
+        <p>
+            &nbsp;</p>
+        <p>
+            Enter a purpose for the appointment</p>
+        <p>
+        
+            <asp:textbox runat="server" id="inputfield0" Width="599px" />
+                </p>
+            <p>
+                <asp:Button ID="btnPurposeEnter" runat="server" Text="Enter" OnClick="btnPurposeEnter_Click" Width="220px"/>
+            </p>
+    </div>
+
+    <div id="confirm" runat="server">
+            <p>
+                &nbsp;</p>
         <p>
             <asp:Label ID="ConfirmLabel" runat="server"></asp:Label>
         </p>

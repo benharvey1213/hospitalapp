@@ -29,7 +29,7 @@ namespace HospitalApp.MyStuff
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MyStuff/DoctorAppointments.aspx");
+            Response.Redirect("/MyStuff/DoctorAppointments.aspx");
         }
 
         protected void Button2_Click(object sender, EventArgs e)

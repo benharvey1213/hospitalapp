@@ -177,6 +177,51 @@ namespace HospitalApp.MyStuff
         protected global::System.Web.UI.WebControls.GridView GridView3;
 
         /// <summary>
+        /// buttonPurpose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl buttonPurpose;
+
+        /// <summary>
+        /// btnPurpose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPurpose;
+
+        /// <summary>
+        /// purposeDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl purposeDiv;
+
+        /// <summary>
+        /// inputfield0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox inputfield0;
+
+        /// <summary>
+        /// btnPurposeEnter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPurposeEnter;
+
+        /// <summary>
         /// confirm control.
         /// </summary>
         /// <remarks>
