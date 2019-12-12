@@ -67,7 +67,7 @@ namespace HospitalApp.MyStuff
         {
             int rowNum = Convert.ToInt32(e.RowIndex);
             int rowID = Convert.ToInt32(GridView1.DataKeys[rowNum].Value);
-            System.Diagnostics.Debug.WriteLine(rowNum + " : " + rowID);
+            // System.Diagnostics.Debug.WriteLine(rowNum + " : " + rowID);
 
             var deleteMessage =
                 from message in dbcontext.Messages

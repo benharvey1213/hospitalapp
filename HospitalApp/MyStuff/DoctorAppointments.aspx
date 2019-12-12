@@ -24,7 +24,7 @@
             <asp:Button ID="btnNewAppointment" runat="server" Text="New Appointment" OnClick="btnNewAppointment_Click" style="font-size: small" />
         </p>
     </div>
-
+    <%-- 
     <div id="buttonSearch" runat="server">
         <p>
             <asp:Button ID="btnSearch" runat="server" Text="Show Patient Search" OnClick="btnSearch_Click" />
@@ -42,17 +42,14 @@
         <p>
             <asp:Button ID="searchButton" runat="server" Text="Search" OnClick="searchButton_Click" Width="157px" />
         </p>
-        <%--<asp:BoundField DataField="Time" HeaderText="Time" />--%>
         <p>
-            <asp:GridView ID="GridView2"  HorizontalAlign="Center" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
+            <asp:GridView ID="GridView2" datakeynames="PatientID" HorizontalAlign="Center" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
                     <asp:BoundField DataField="PatientName" HeaderText="Patient Name" />
                 </Columns>
             </asp:GridView>
         </p>
-        <%--        <p>
-            &nbsp;</p>--%>
     </div>
     <div id="buttonCalendar" runat="server">
         <p>
@@ -82,12 +79,9 @@
             <asp:GridView ID="GridView3" HorizontalAlign="Center" runat="server" OnSelectedIndexChanged="GridView3_SelectedIndexChanged">
                 <Columns>
                     <asp:CommandField ShowSelectButton="True" />
-                    <%--<asp:BoundField DataField="Time" HeaderText="Time" />--%>
                 </Columns>
             </asp:GridView>
         </p>
-<%--        <p>
-            &nbsp;</p>--%>
         <p>
             </p>
     </div>
@@ -122,7 +116,7 @@
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Confirm Appointment" />
         </p>
     </div>
-
+    --%>
     <p>&nbsp;</p>
     
     <div align="center">&nbsp; <a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg" style="font-size: small">Back</a></div>

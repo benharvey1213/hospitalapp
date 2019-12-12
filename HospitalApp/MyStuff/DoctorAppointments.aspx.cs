@@ -14,15 +14,15 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            buttonTime.Visible = false;
-            buttonSearch.Visible = false;
-            buttonCalendar.Visible = false;
-            buttonPurpose.Visible = false;
-            purposeDiv.Visible = false;
-            calendarDiv.Visible = false;
-            timeDiv.Visible = false;
-            confirm.Visible = false;
-            searchDiv.Visible = false;
+            //buttonTime.Visible = false;
+            //buttonSearch.Visible = false;
+            //buttonCalendar.Visible = false;
+            //buttonPurpose.Visible = false;
+            //purposeDiv.Visible = false;
+            //calendarDiv.Visible = false;
+            //timeDiv.Visible = false;
+            //confirm.Visible = false;
+            //searchDiv.Visible = false;
 
             string name = null;
             try
@@ -57,6 +57,12 @@ namespace HospitalApp.MyStuff
 
         }
 
+        protected void btnNewAppointment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/MyStuff/DoctorPatients.aspx");
+        }
+
+        /*
         protected void searchButton_Click(object sender, EventArgs e)
         {
             searchDiv.Visible = true;
@@ -90,7 +96,7 @@ namespace HospitalApp.MyStuff
             var timeQuery =
                 from appointment in dbcontext.Appointments
                 join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
-                where doctor.UserLoginName == username /*&& appointment.Time.Date == Calendar1.SelectedDate*/
+                where doctor.UserLoginName == username 
                 select new { Time = appointment.Time };
 
 
@@ -130,7 +136,30 @@ namespace HospitalApp.MyStuff
             // confirm appointment
             // need patientid, doctorid, purpose, datetime
 
+            // patient id
+            int selectedRowIndex = GridView2.SelectedRow.RowIndex;
+            int patientID = Convert.ToInt32(GridView2.DataKeys[selectedRowIndex].Value);
 
+            // doctor id
+            var doctorIDQuery =
+                from doctor in dbcontext.Doctors
+                where doctor.UserLoginName == username
+                select doctor;
+
+            int doctorID = doctorIDQuery.First().DoctorID;
+
+            // time
+            string timeString = GridView3.SelectedRow.Cells[1].Text;
+            string dateString = Calendar1.SelectedDate.Month + "/" + Calendar1.SelectedDate.Day
+                + "/" + Calendar1.SelectedDate.Year + " " + timeString;
+
+            DateTime aptTime = Convert.ToDateTime(dateString);
+            System.Diagnostics.Debug.WriteLine(aptTime.ToString());
+
+            // purpose
+            string purpose = inputfield0.Text;
+
+            // insert into database
 
         }
 
@@ -186,8 +215,6 @@ namespace HospitalApp.MyStuff
 
         protected void btnPurposeEnter_Click(object sender, EventArgs e)
         {
-            
-
             purposeDiv.Visible = false;
             buttonPurpose.Visible = true;
             buttonTime.Visible = true;
@@ -196,9 +223,11 @@ namespace HospitalApp.MyStuff
 
             confirm.Visible = true;
 
-            ConfirmLabel.Text = "Make an appointment with " + GridView2.Rows[GridView2.SelectedRow.RowIndex].Cells[1].Text + " on " +
-                Calendar1.SelectedDate.Month + "/" + Calendar1.SelectedDate.Day + " at " +
-                GridView3.Rows[GridView3.SelectedRow.RowIndex].Cells[1].Text + "?";
+            ConfirmLabel.Text = "Patient: " + GridView2.Rows[GridView2.SelectedRow.RowIndex].Cells[1].Text +
+                "<br/>Date: " + Calendar1.SelectedDate.Month + "/" + Calendar1.SelectedDate.Day +
+                "<br/>Time: " + GridView3.Rows[GridView3.SelectedRow.RowIndex].Cells[1].Text +
+                "<br/>Purpose: " + inputfield0.Text;
         }
+        */
     }
 }

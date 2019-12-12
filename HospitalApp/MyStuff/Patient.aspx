@@ -8,10 +8,7 @@
         <asp:Button ID="Button1" runat="server" Text="Manage Appointments" Width="293px" OnClick="Button1_Click" />
     </p>
     <p>
-        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Current Medications" Width="293px" />
-    </p>
-    <p>
-        <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Test Results" Width="293px" />
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Medications and Test Results" Width="293px" />
     </p>
     <p>
         <asp:Button ID="Button4" runat="server" Text="Messages" Width="293px" OnClick="Button4_Click" />
