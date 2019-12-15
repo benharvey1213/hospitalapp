@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 namespace HospitalApp.MyStuff
 {
@@ -12,6 +13,19 @@ namespace HospitalApp.MyStuff
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string username = null;
+            string name = null;
+            try
+            {
+                username = Request.Cookies["username"].Value;
+                name = Request.Cookies["name"].Value;
+            }
+            catch
+            {
+                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
+                Response.Redirect("/MyStuff/Login.aspx", false);
+            }
+
 
         }
 
@@ -29,19 +43,31 @@ namespace HospitalApp.MyStuff
 
         }
 
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            foreach (GridViewRow row in GridView1.Rows)
+            {
+                if (row.RowIndex == GridView1.SelectedIndex)
+                {
+                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    row.ToolTip = string.Empty;
+                }
+                else
+                {
+                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    row.ToolTip = "Click to select this row.";
+                }
+            }
         }
 
-        protected void GridView1_Message(object sender, GridViewCommandEventArgs e)
+        protected void OnRowDataBound(object sender, System.Web.UI.WebControls.GridViewRowEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("message");
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(GridView1, "Select$" + e.Row.RowIndex);
+                e.Row.ToolTip = "Click to select this row.";
+            }
         }
 
-        protected void GridView1_MakeAppointment(object sender, GridViewCommandEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("appt");
-        }
     }
 }

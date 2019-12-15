@@ -4,15 +4,16 @@
     <p style="font-size: large">View Patients</p>
     <p>
         <asp:TextBox ID="TextBox1" runat="server" Width="263px"></asp:TextBox>
-&nbsp;<asp:Button ID="Button1" runat="server" Text="Search" Width="131px" OnClick="Button1_Click" />
+&nbsp;<asp:Button ID="Button1" runat="server" class="btn" Text="Search" Width="131px" OnClick="Button1_Click" />
 
-        <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" ShowHeader="False" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+        <asp:GridView ID="GridView1" runat="server" CellSpacing="5" HorizontalAlign="Center" ShowHeader="False" AutoGenerateColumns="False" OnRowDataBound = "OnRowDataBound" OnSelectedIndexChanged = "OnSelectedIndexChanged" >
             <Columns>
                 <asp:BoundField DataField="Name" />
-                <asp:ButtonField Text="Message" CommandName="GridView1_Message"/>
-                <asp:ButtonField Text="Make Appointment" CommandName="GridView1_Message"/>
             </Columns>
         </asp:GridView>
+
+        <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
+
     </p>
     <p>
         &nbsp;</p>

@@ -12,8 +12,18 @@ namespace HospitalApp.MyStuff
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
-            string username = Request.Cookies["username"].Value;
-            string name = Request.Cookies["name"].Value;
+            string username = null;
+            string name = null;
+            try
+            {
+                username = Request.Cookies["username"].Value;
+                name = Request.Cookies["name"].Value;
+            }
+            catch
+            {
+                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
+                Response.Redirect("/MyStuff/Login.aspx", false);
+            }
 
             //NameLabel.Text = name;
 

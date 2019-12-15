@@ -18,6 +18,11 @@ textarea {
     max-width: 280px;
 }
 
+.btn {
+    background-color: #E9D985;
+    font-size: small;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
