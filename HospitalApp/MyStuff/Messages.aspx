@@ -34,13 +34,12 @@
         <asp:Label ID="TableLabel" runat="server"></asp:Label>
     </p>
     <p>
-        <asp:GridView ID="GridView1" datakeynames="MessageID" HorizontalAlign="Center" runat="server" OnRowDeleting="GridView1_RowDeleting" AutoGenerateColumns="False">
+        <asp:GridView ID="GridView1" datakeynames="MessageID" CellSpacing="5" HorizontalAlign="Center" runat="server" OnRowDeleting="GridView1_RowDeleting" AutoGenerateColumns="False">
             <Columns>
                 <asp:BoundField DataField="Date" HeaderText="Date" />
                 <asp:BoundField DataField="Sender" HeaderText="Sender" />
                 <asp:BoundField DataField="Message" HeaderText="Message" />
-                <%--<asp:BoundField DataField="ID" HeaderText="ID" />--%>
-                <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />
+                <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn" />
             </Columns>
         </asp:GridView>
     </p>

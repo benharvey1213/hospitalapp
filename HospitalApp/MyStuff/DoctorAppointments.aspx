@@ -24,7 +24,10 @@
             <asp:Button ID="btnNewAppointment" runat="server" Text="New Appointment" OnClick="btnNewAppointment_Click" style="font-size: small" />
         </p>
     </div>
-    <%-- 
+    
+
+
+
     <div id="buttonSearch" runat="server">
         <p>
             <asp:Button ID="btnSearch" runat="server" Text="Show Patient Search" OnClick="btnSearch_Click" />
@@ -116,7 +119,9 @@
             <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Confirm Appointment" />
         </p>
     </div>
-    --%>
+    
+
+
     <p>&nbsp;</p>
     
     <div align="center">&nbsp; <a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg" style="font-size: small">Back</a></div>

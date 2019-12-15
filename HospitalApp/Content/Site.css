@@ -21,8 +21,14 @@ textarea {
 .btn {
     background-color: #E9D985;
     font-size: small;
+    color: white;
 }
 
+.btn2 {
+    background-color: #439A86;
+    font-size: small;
+    color: white;
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
