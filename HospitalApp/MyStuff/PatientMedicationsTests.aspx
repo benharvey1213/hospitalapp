@@ -6,7 +6,7 @@
     <p>
         &nbsp;</p>
     <p>
-        <span style="font-size: large">Medication and Test Results</span>
+        <span style="font-size: x-large">Medication and Test Results</span>
         </p>
     <p>
         &nbsp;</p>
@@ -17,6 +17,8 @@
         </asp:GridView>
     </p>
     <p>
+        
+        
         &nbsp;</p>
     <p>
         Test Results</p>
