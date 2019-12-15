@@ -12,7 +12,8 @@
     </p>
     <p>
         &nbsp;</p>
-        <div align="center">&nbsp; <a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg">Back</a></div>
-    <p>&nbsp;</p>
+        <p>
+        <asp:Button ID="Button4" runat="server" CssClass="btn2" Text="Back" Width="131px" OnClick="Button4_Click" />
+    </p>
     <p>&nbsp;</p>
 </asp:Content>

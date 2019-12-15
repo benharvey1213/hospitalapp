@@ -13,7 +13,7 @@
     <p>
         Medications</p>
     <p>
-        <asp:GridView ID="GridView1" HorizontalAlign="Center" HeaderText="Medication Name" runat="server" >
+        <asp:GridView ID="GridView1" HorizontalAlign="Center" ShowHeader="false" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal">
         </asp:GridView>
     </p>
     <p>
@@ -21,11 +21,13 @@
     <p>
         Test Results</p>
     <p>
-        <asp:GridView ID="GridView2" HorizontalAlign="Center" runat="server">
+        <asp:GridView ID="GridView2" CssClass="gview" HorizontalAlign="Center" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="596px">
         </asp:GridView>
     </p>
     <p>
         &nbsp;</p>
-        <p><a href="/MyStuff/Dashboard.aspx" class="btn btn-primary btn-lg">Back</a>&nbsp; </p>
+     <p>
+        <asp:Button ID="Button4" runat="server" CssClass="btn2" Text="Back" Width="131px" OnClick="Button4_Click" />
+    </p>
     <p>&nbsp;</p>
 </asp:Content>

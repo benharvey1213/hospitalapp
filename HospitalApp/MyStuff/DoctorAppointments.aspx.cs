@@ -36,7 +36,7 @@ namespace HospitalApp.MyStuff
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
-            NameLabel.Text = name;
+            //NameLabel.Text = name;
 
             PopulateAppointmentsGridView();
 
@@ -60,6 +60,16 @@ namespace HospitalApp.MyStuff
         protected void btnNewAppointment_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/DoctorPatients.aspx");
+        }
+
+        protected void searchButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/MyStuff/Dashboard.aspx");
         }
 
         /*

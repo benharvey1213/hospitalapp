@@ -22,12 +22,39 @@ textarea {
     background-color: #E9D985;
     font-size: small;
     color: white;
+    outline: 0;
+
+    border-top-right-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+}
+
+.big {
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .btn2 {
     background-color: #439A86;
+    border: none;
+    outline: 0;
+    height: 40px;
     font-size: small;
     color: white;
+
+    border-top-right-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+}
+
+.btn:hover{
+    color:white;
+}
+
+.gview {
+    padding-left: 20px;
 }
 
 /* Responsive: Portrait tablets and up */

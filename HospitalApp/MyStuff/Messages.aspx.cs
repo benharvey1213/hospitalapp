@@ -96,5 +96,10 @@ namespace HospitalApp.MyStuff
             GridView1.DataSource = messageQuery.ToList();
             GridView1.DataBind();
         }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/MyStuff/Dashboard.aspx");
+        }
     }
 }
