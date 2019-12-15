@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace HospitalApp.MyStuff
 {
     public partial class Messages : System.Web.UI.Page
     {
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
+        Messager myMessager = new Messager();
         private string thisUsername = null;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,15 +51,8 @@ namespace HospitalApp.MyStuff
                 ErrorLabel.Text = "Hey, looks like you forgot to write a message";
                 return;
             }
-
-            Message newMessage = new Message();
-            newMessage.Date = DateTime.Now;
-            newMessage.UserLoginNameTo = DropDownList1.SelectedValue;
-            newMessage.Message1 = TextBox2.Text;
-            newMessage.UserLoginNameFrom = thisUsername;
-
-            dbcontext.Messages.Add(newMessage);
-            dbcontext.SaveChanges();
+            
+            myMessager.SendMessage(DropDownList1.SelectedValue, thisUsername, TextBox2.Text);
 
             TextBox2.Text = "";
             PopulateMessageTable();

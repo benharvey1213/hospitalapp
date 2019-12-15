@@ -4,36 +4,46 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Drawing;
 
 namespace HospitalApp.MyStuff
 {
     public partial class DoctorPatients : System.Web.UI.Page
     {
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
+        Messager myMessager = new Messager();
         string username = null;
-        string name = null;
-        int selectedPatientID = -1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // triggered on inital load of page, not postbacks
+            // this is so that everything is not reset when calendar dates are changed or buttons are clicked
             if (!Page.IsPostBack)
             {
+                header.InnerText = "View Patients";
                 Calendar1.SelectedDate = DateTime.Now.Date;
                 buttonsDiv.Visible = false;
                 appointmentDiv.Visible = false;
                 confirmation.Visible = false;
+                messager.Visible = false;
             }
-
             try
             {
                 username = Request.Cookies["username"].Value;
-                name = Request.Cookies["name"].Value;
+
+                var doctorQuery =
+                    from doctor in dbcontext.Doctors
+                    where doctor.UserLoginName == username
+                    select doctor;
+
+                if (doctorQuery.Count() == 0)
+                {
+                    Response.Redirect("/MyStuff/Dashboard.aspx", false);
+                }
+
             }
             catch
             {
-                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
+                //Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
         }
@@ -54,15 +64,10 @@ namespace HospitalApp.MyStuff
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonsDiv.Visible = true;
-
-            //string rowUser = GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString();
-
-            //Button1.Text = rowUser;
-
-            //Response.Cookies["aptUsername"].Value = rowUser;
-            //Response.Redirect("/MyStuff/")
+            confirmation.Visible = false;
         }
 
+        // send message
         protected void Button2_Click(object sender, EventArgs e)
         {
             string rowUser = null;
@@ -72,10 +77,13 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                lblErrorDiv.Visible = true;
-                lblError.Text = "Must select a patient first";
+                //lblErrorDiv.Visible = true;
+                //lblError.Text = "Must select a patient first";
                 return;
             }
+
+            messager.Visible = true;
+            lblTo.Text = "To: " + PatientUsernameToFullName(rowUser);
         }
 
         // make appointment
@@ -88,13 +96,16 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                lblErrorDiv.Visible = true;
-                lblError.Text = "Must select a patient first";
+                //lblErrorDiv.Visible = true;
+                //lblError.Text = "Must select a patient first";
                 return;
             }
 
+            header.InnerText = "Schedule Appointment";
+            searchDiv.Visible = false;
             confirmation.Visible = false;
             appointmentDiv.Visible = true;
+            buttonsDiv.Visible = false;
 
             var patientQuery =
                 from Patient in dbcontext.Patients
@@ -102,12 +113,12 @@ namespace HospitalApp.MyStuff
                 select new { Name = Patient.FirstName + " " + Patient.LastName , ID = Patient.PatientID};
 
             lblPatient.Text = "Patient: " + patientQuery.First().Name;
-            selectedPatientID = patientQuery.First().ID;
 
             Calendar1.SelectedDate = DateTime.Now.Date;
             PopulateTimeDropDown();
         }
 
+        // back button
         protected void Button4_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/Dashboard.aspx");
@@ -120,9 +131,7 @@ namespace HospitalApp.MyStuff
 
         private void PopulateTimeDropDown()
         {
-            System.Diagnostics.Debug.WriteLine(Calendar1.SelectedDate.ToString());
-
-
+            // LINQ query to pull all the appointments on the selected Calendar day for the Doctor
             var timesQuery =
                 from Appointment in dbcontext.Appointments
                 join Doctor in dbcontext.Doctors on Appointment.DoctorID equals Doctor.DoctorID
@@ -132,36 +141,57 @@ namespace HospitalApp.MyStuff
                     && Doctor.UserLoginName == username
                 select Appointment.Time;
 
-            System.Diagnostics.Debug.WriteLine(timesQuery.Count() + " unavailiable time");
-
-            List<string> times = new List<string>();
-
+            // this stores a list of the times on this day that are taken
             List<DateTime> thisDayAppointmentTimes = timesQuery.ToList();
 
-            DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
-            DateTime end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 0, 0);
+            // this will store all the times available for the day selected
+            List<string> times = new List<string>();
 
+            // business hours (8 AM - 5 PM)
+            int startHour = 8;
+            int endHour = 17;
+
+            // the program will increment between these times to fill the available time slots
+            DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, startHour, 0, 0);
+            DateTime end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, endHour, 0, 0);
+
+            // the number of minutes for a time slot
             int interval = 30;
 
+            // increment 
             while (start.Hour < end.Hour)
             {
                 if (timesQuery.Count() != 0)
                 {
+                    bool appointmentMatch = false;
+
                     foreach (DateTime time in thisDayAppointmentTimes)
                     {
-                        if (!(time.Hour == start.Hour && time.Minute == start.Minute))
+                        // checks if there is an appointment during this time
+                        if (time.Hour == start.Hour && time.Minute == start.Minute)
                         {
-                            times.Add(start.ToString("h:mm tt"));
+                            appointmentMatch = true;
                         }
                     }
+
+                    if (!appointmentMatch)
+                    {
+                        // if there isn't an appointment in this time slot, add it to the list
+                        // of available times for the DropDownList
+                        times.Add(start.ToString("h:mm tt"));
+                    }
                 }
+                // bypasses any checks if there are no appointments this day
                 else
                 {
                     times.Add(start.ToString("h:mm tt"));
                 }
+
+                // increments the time to the next time slot
                 start = start.AddMinutes(interval);
             }
 
+            // once the available times are populated, bind them to the DropDownList
             DropDownList1.DataSource = times;
             DropDownList1.DataBind();
         }
@@ -170,15 +200,10 @@ namespace HospitalApp.MyStuff
         protected void Button5_Click(object sender, EventArgs e)
         {
             // patient id
-            int patID = selectedPatientID;
+            int patID = PatientUsernameToID(GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString());
 
             // doctor id
-            var doctorQuery =
-                from Doctor in dbcontext.Doctors
-                where Doctor.UserLoginName == username
-                select Doctor.DoctorID;
-
-            int docID = doctorQuery.First();
+            int docID = DoctorUsernameToID(username);
 
             // appointment time
             DateTime time = Convert.ToDateTime(DropDownList1.SelectedValue);
@@ -192,7 +217,7 @@ namespace HospitalApp.MyStuff
 
             // purpose
             string purpose = inputfield0.Text;
-            inputfield0.Text = "";
+            inputfield0.Text = "";  // reset input field
 
             // insert into the database
             Appointment apt = new Appointment
@@ -202,24 +227,45 @@ namespace HospitalApp.MyStuff
                 Time = aptTime,
                 Purpose = purpose
             };
-
+            dbcontext.Appointments.Add(apt);
+            dbcontext.SaveChanges();
 
             buttonsDiv.Visible = true;
             appointmentDiv.Visible = false;
 
             lblConfirmation.Text = "Appointment scheduled for " + PatientIDToFullName(patID) +
-                " at " + apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MM/yy") + ".";
+                " at " + apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MMMM dd, yyyy") + ".";
 
             confirmation.Visible = true;
+            buttonsDiv.Visible = true;
+            searchDiv.Visible = true;
 
-            dbcontext.Appointments.Add(apt);
-            dbcontext.SaveChanges();
+            // send confirmation message
+            if (CheckBox1.Checked)
+            {
+                string doctorName = "Dr. " + DoctorUsernameToFullName(username);
+
+                string confirmationMessage = doctorName + " has scheduled an appointment for you for " +
+                    apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MMMM dd, yyyy") + ".";
+
+                myMessager.SendMessage(GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString(),
+                username, confirmationMessage);
+            }
         }
 
+        // send message
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            myMessager.SendMessage(GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString(),
+                username, Textbox3.Text);
+            Textbox3.Text = "";
+
+            messager.Visible = false;
+        }
+
+        #region Database Translation Methods
         protected string PatientIDToFullName(int id)
         {
-            System.Diagnostics.Debug.WriteLine(id);
-
             var patientQuery =
                 from Patient in dbcontext.Patients
                 where Patient.PatientID == id
@@ -227,5 +273,46 @@ namespace HospitalApp.MyStuff
 
             return patientQuery.First().Name;
         }
+
+        protected int PatientUsernameToID(string username)
+        {
+            var patientQuery =
+                from Patient in dbcontext.Patients
+                where Patient.UserLoginName == username
+                select new { ID = Patient.PatientID };
+
+            return patientQuery.First().ID;
+        }
+
+        protected string PatientUsernameToFullName(string username)
+        {
+            var patientQuery =
+                from Patient in dbcontext.Patients
+                where Patient.UserLoginName == username
+                select new { Name = (Patient.FirstName + " " + Patient.LastName) };
+
+            return patientQuery.First().Name;
+        }
+
+        protected int DoctorUsernameToID(string username)
+        {
+            var doctorQuery =
+                from Doctor in dbcontext.Doctors
+                where Doctor.UserLoginName == username
+                select new { ID = Doctor.DoctorID };
+
+            return doctorQuery.First().ID;
+        }
+
+        protected string DoctorUsernameToFullName(string username)
+        {
+            var doctorQuery =
+                from Doctor in dbcontext.Doctors
+                where Doctor.UserLoginName == username
+                select new { Name = Doctor.FirstName + " " + Doctor.LastName };
+
+            return doctorQuery.First().Name;
+        }
+        #endregion
     }
 }
