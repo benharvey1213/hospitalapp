@@ -19,5 +19,7 @@ namespace HospitalApp.MyStuff
         public string UserLoginNameFrom { get; set; }
         public System.DateTime Date { get; set; }
         public string Message1 { get; set; }
+        public bool InToBox { get; set; }
+        public bool InFromBox { get; set; }
     }
 }

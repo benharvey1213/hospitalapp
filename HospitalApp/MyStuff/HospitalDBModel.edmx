@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Appointments">
           <Key>
             <PropertyRef Name="AppointmentID" />
@@ -29,7 +29,7 @@
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.dbo.MedicationPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.MedicationPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MedicationPairs">
           <Key>
             <PropertyRef Name="PatientID" />
@@ -54,6 +54,8 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.
           <Property Name="UserLoginNameFrom" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Message" Type="nchar" MaxLength="1000" Nullable="false" />
+          <Property Name="InToBox" Type="bit" Nullable="false" />
+          <Property Name="InFromBox" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Patients">
           <Key>
@@ -69,7 +71,7 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\PROGRAMMING\HOSPITALDB.MDF.dbo.TestPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TestPairs">
           <Key>
             <PropertyRef Name="PatientID" />
@@ -115,8 +117,7 @@ FROM [dbo].[MedicationPairs] AS [MedicationPairs]</DefiningQuery>
 FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HospitalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -159,6 +160,8 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <Property Name="UserLoginNameFrom" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Message1" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="InToBox" Type="Boolean" Nullable="false" />
+          <Property Name="InFromBox" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -258,6 +261,8 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="HospitalDBModel.Message">
               <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="InFromBox" ColumnName="InFromBox" />
+                <ScalarProperty Name="InToBox" ColumnName="InToBox" />
                 <ScalarProperty Name="MessageID" ColumnName="MessageID" />
                 <ScalarProperty Name="UserLoginNameTo" ColumnName="UserLoginNameTo" />
                 <ScalarProperty Name="UserLoginNameFrom" ColumnName="UserLoginNameFrom" />
