@@ -17,9 +17,9 @@
         &nbsp;</p>
 
     <p>
-        <asp:Button ID="Button5" CssClass="btn2" runat="server" Text="Home" Width="136px" OnClick="Button5_Click" style="font-size: 20px" />
+        <asp:Button ID="Button3" runat="server" class="btn2" Text="Home" Width="425px" OnClick="Button3_Click" style="font-size: large" />
     </p>
 
-    <p>
-        &nbsp;</p>
+    <p>&nbsp;</p>
+
 </asp:Content>

@@ -21,4 +21,10 @@
     </p>
 
     <p>&nbsp;</p>
+
+     <p>
+        <asp:Button ID="Button4" runat="server" class="btn2" Text="Home" Width="293px" OnClick="Button4_Click" style="font-size: large" />
+    </p>
+
+    <p>&nbsp;</p>
 </asp:Content>

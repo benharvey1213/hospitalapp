@@ -26,7 +26,7 @@ namespace HospitalApp.MyStuff
             Response.Redirect("/MyStuff/Messages.aspx");
         }
 
-        protected void Button5_Click(object sender, EventArgs e)
+        protected void Button3_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Default.aspx");
         }
