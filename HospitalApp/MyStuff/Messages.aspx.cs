@@ -12,6 +12,7 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // ensure a user is logged in
             string username = null;
             string name = null;
             try
@@ -55,8 +56,10 @@ namespace HospitalApp.MyStuff
             }
         }
 
+        // button to send message
         protected void Button1_Click(object sender, EventArgs e)
         {
+            // validation to ensure the message is not blank
             if (TextBox2.Text == null || TextBox2.Text == "")
             {
                 ErrorLabel.Text = "Hey, it looks like you forgot to write a message";
@@ -75,6 +78,7 @@ namespace HospitalApp.MyStuff
             int rowNum = Convert.ToInt32(e.RowIndex);
             int rowID = Convert.ToInt32(GridView1.DataKeys[rowNum].Value);
 
+            // LINQ query to select message to remove
             var deleteMessage =
                 from message in dbcontext.Messages
                 where message.MessageID == rowID
@@ -94,6 +98,7 @@ namespace HospitalApp.MyStuff
             int rowNum = Convert.ToInt32(e.RowIndex);
             int rowID = Convert.ToInt32(GridView2.DataKeys[rowNum].Value);
 
+            // LINQ Query to select message to remove
             var deleteMessage =
                 from message in dbcontext.Messages
                 where message.MessageID == rowID
@@ -108,8 +113,10 @@ namespace HospitalApp.MyStuff
             PopulateMessageTable();
         }
 
+        // refreshes both message gridviews with the current messages in the databse
         protected void PopulateMessageTable()
         {
+            // inbox
             var messageQuery =
                 from message in dbcontext.Messages
                 where message.UserLoginNameTo == thisUsername && message.InToBox == true
@@ -127,6 +134,7 @@ namespace HospitalApp.MyStuff
             GridView1.DataSource = messageQuery.ToList();
             GridView1.DataBind();
 
+            // sent messages
             var sentMessageQuery = 
                 from message in dbcontext.Messages
                 where message.UserLoginNameFrom == thisUsername && message.InFromBox == true
@@ -153,11 +161,6 @@ namespace HospitalApp.MyStuff
         protected void Button3_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/DoctorPatients.aspx");
-        }
-
-        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

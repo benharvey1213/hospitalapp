@@ -1,10 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PatientMedicationsTests.aspx.cs" Inherits="HospitalApp.MyStuff.PatientMedicationsTests" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-
-
-    <p>
-        &nbsp;</p>
+    <p>&nbsp;</p>
 
     <p style="font-size: x-large">
         Medications</p>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -27,6 +26,8 @@ namespace HospitalApp.MyStuff
                 messager.Visible = false;
                 patientInfoDiv.Visible = false;
             }
+
+            // ensure that a user is logged in
             try
             {
                 username = Request.Cookies["username"].Value;
@@ -51,6 +52,7 @@ namespace HospitalApp.MyStuff
         // search button for patients
         protected void Button1_Click(object sender, EventArgs e)
         {
+            // this will try to parse the input as an integer to search for PatientID
             int textBoxInt = -1;
             try
             {
@@ -64,8 +66,11 @@ namespace HospitalApp.MyStuff
                 GridView1.DataSource = patientQuery.ToList();
                 GridView1.DataBind();
             }
+
+            // the text couldn't be parsed as an int, so the program will treat it as normal text
             catch
             {
+                // if there there is no input, display all the patients
                 if (TextBox1.Text.Trim() == "")
                 {
                     var patientQuery =
@@ -75,6 +80,8 @@ namespace HospitalApp.MyStuff
                     GridView1.DataSource = patientQuery.ToList();
                     GridView1.DataBind();
                 }
+
+                // LINQ query to find a patient whose username or full name contains the search input
                 else
                 {
                     var patientQuery =
@@ -144,17 +151,17 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                //lblErrorDiv.Visible = true;
-                //lblError.Text = "Must select a patient first";
                 return;
             }
 
+            // set up visibility to simulate new screen
             header.InnerText = "Schedule Appointment";
             searchDiv.Visible = false;
             confirmation.Visible = false;
             appointmentDiv.Visible = true;
             buttonsDiv.Visible = false;
 
+            // LINQ query to show the patient
             var patientQuery =
                 from Patient in dbcontext.Patients
                 where Patient.UserLoginName == rowUser
@@ -278,15 +285,16 @@ namespace HospitalApp.MyStuff
             dbcontext.Appointments.Add(apt);
             dbcontext.SaveChanges();
 
+            // update visibility
             buttonsDiv.Visible = true;
             appointmentDiv.Visible = false;
-
-            lblConfirmation.Text = "Appointment scheduled for " + PatientIDToFullName(patID) +
-                " at " + apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MMMM dd, yyyy") + ".";
-
             confirmation.Visible = true;
             buttonsDiv.Visible = true;
             searchDiv.Visible = true;
+
+            // show visual confirmation for the user
+            lblConfirmation.Text = "Appointment scheduled for " + PatientIDToFullName(patID) +
+                " at " + apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MMMM dd, yyyy") + ".";
 
             // send confirmation message
             if (CheckBox1.Checked)
@@ -363,6 +371,7 @@ namespace HospitalApp.MyStuff
         }
         #endregion
 
+        // shows all patients assigned to this Doctor
         protected void Button8_Click(object sender, EventArgs e)
         {
             var doctorIDQuery =
@@ -395,6 +404,7 @@ namespace HospitalApp.MyStuff
             PopulatePatientInfo();
         }
 
+        // fills multiple fields and gridviews with information about a patient
         private void PopulatePatientInfo()
         {
             string patientUsername = GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString();
@@ -478,10 +488,6 @@ namespace HospitalApp.MyStuff
             {
                 lblMedication.Text = "Current Medications";
             }
-
-
-
         }
-
     }
 }

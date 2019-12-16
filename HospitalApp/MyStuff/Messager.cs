@@ -2,10 +2,12 @@
 
 namespace HospitalApp.MyStuff
 {
+    // this class handles interaction with the database to create a new message
     public class Messager
     {
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
 
+        // adds a message to the database
         public void SendMessage(string toName, string fromName, string message)
         {
             Message newMessage = new Message();

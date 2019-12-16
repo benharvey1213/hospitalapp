@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace HospitalApp.MyStuff
@@ -12,6 +9,7 @@ namespace HospitalApp.MyStuff
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
+            // ensures a user is logged in
             string username = null;
             string name = null;
             try
@@ -24,7 +22,7 @@ namespace HospitalApp.MyStuff
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
-            //NameLabel.Text = name;
+            // populate the medication and test gridviews
 
             var medicationQuery =
                 from medicationPair in dbcontext.MedicationPairs
@@ -32,7 +30,6 @@ namespace HospitalApp.MyStuff
                 join medication in dbcontext.Medications on medicationPair.MedicationID equals medication.MedicationID
                 where patient.UserLoginName == username
                 select medication.MedicationName;
-
 
             GridView1.DataSource = medicationQuery.ToList();
             GridView1.DataBind();
@@ -51,15 +48,11 @@ namespace HospitalApp.MyStuff
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            // properly set header text
             if (e.Row.RowType == DataControlRowType.Header)
             {
                 e.Row.Cells[0].Text = "Date";
             }
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void Button4_Click(object sender, EventArgs e)

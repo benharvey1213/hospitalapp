@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.Security;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
-using System.Windows.Forms;
 
 namespace HospitalApp.MyStuff
 {
@@ -28,6 +20,7 @@ namespace HospitalApp.MyStuff
             string username = TextBox1.Text.Trim();
             string password = TextBox2.Text.Trim();
 
+            // cases where input is empty
             if (username == "" && password == "")
             {
                 ErrorPlaceholder.Text = "Please enter your username and password";
@@ -44,62 +37,50 @@ namespace HospitalApp.MyStuff
                 return;
             }
 
-
+            // LINQ Query to find the entered user from username
             var userQuery =
                 from Users in dbContext.Users
                 where Users.UserLoginName == username && Users.UserLoginPass == password
                 select Users;
 
-
+            // log in failure
             if (userQuery.Count() == 0)
             {
-                // log in failure
                 TextBox1.Text = "";
                 TextBox2.Text = "";
                 ErrorPlaceholder.Text = "Sorry, no user found with those credentials";
-                Debug.WriteLine("no users");
-            } 
+            }
+
+            // log in success
             else
             {
-                // log in success
-
-                var nameQuery =
+                // check if the username belongs to a patient
+                var patientNameQuery =
                     from Patients in dbContext.Patients
                     where Patients.UserLoginName == username
                     select Patients.FirstName;
 
-                if (nameQuery.Count() > 0)
+                if (patientNameQuery.Count() > 0)
                 {
-                    Response.Cookies["name"].Value = nameQuery.First();
+                    Response.Cookies["name"].Value = patientNameQuery.First();
                     Response.Cookies["username"].Value = username;
                     FormsAuthentication.RedirectFromLoginPage(username, true);
                     return;
                 }
 
-                var nameQuery2 =
+                // check if the username belongs to a doctor
+                var doctorNameQuery =
                     from doctor in dbContext.Doctors
                     where doctor.UserLoginName == username
                     select doctor.LastName;
 
-                if (nameQuery2.Count() > 0)
+                if (doctorNameQuery.Count() > 0)
                 {
-                    Response.Cookies["name"].Value = "Dr. " + nameQuery2.First();
+                    Response.Cookies["name"].Value = "Dr. " + doctorNameQuery.First();
                     Response.Cookies["username"].Value = username;
                     FormsAuthentication.RedirectFromLoginPage(username, true);
                     return;
                 }
-
-            }
-
-
-            if (userQuery == null)
-            {
-                // no user
-            }
-            else
-            {
-                // sucessful login
-
             }
         }
     }

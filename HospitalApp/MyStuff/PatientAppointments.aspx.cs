@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,7 +14,7 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // ensure a user is logged in
             string name = null;
             try
             {
@@ -27,6 +26,7 @@ namespace HospitalApp.MyStuff
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
+            // initializes page on first load
             if (!Page.IsPostBack)
             {
                 appointmentDiv.Visible = false;
@@ -34,21 +34,16 @@ namespace HospitalApp.MyStuff
                 Calendar1.SelectedDate = DateTime.Now.Date;
             }
 
-
             PopulateAppointments();
         }
 
+        // correctly sets header of gridview
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
                 e.Row.Cells[0].Text = "Date";
             }
-        }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void Button4_Click(object sender, EventArgs e)
@@ -59,6 +54,7 @@ namespace HospitalApp.MyStuff
         // schedule a new appointment
         protected void Button5_Click(object sender, EventArgs e)
         {
+            // set visibility for element
             confirmationDiv.Visible = false;
             aptDiv.Visible = false;
             btnScheduleDiv.Visible = false;
@@ -82,7 +78,6 @@ namespace HospitalApp.MyStuff
                 }
             }
 
-
             ddlDepartment.DataSource = filteredDepartmentList;
             ddlDepartment.DataBind();
 
@@ -100,6 +95,7 @@ namespace HospitalApp.MyStuff
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // correctly populate fields based on selected index
             if (ddlDepartment.SelectedItem.Text == "Any Department")
             {
                 var doctorQuery =
@@ -127,10 +123,8 @@ namespace HospitalApp.MyStuff
             PopulateTimeDropDown();
         }
 
-
         protected void ddlDoctor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("yeet");
             PopulateTimeDropDown();
         }
 
@@ -249,6 +243,7 @@ namespace HospitalApp.MyStuff
             dbcontext.Appointments.Add(apt);
             dbcontext.SaveChanges();
 
+            // LINQ Queries to gather needed information for confirmation message
             var patientNameQuery =
                 from patient in dbcontext.Patients
                 where patient.UserLoginName == username
@@ -274,10 +269,12 @@ namespace HospitalApp.MyStuff
 
             myMessager.SendMessage(doctorUserName, username, confirmationMessage);
 
+            // set visibility for next phase of the page
             aptDiv.Visible = true;
             btnScheduleDiv.Visible = true;
             appointmentDiv.Visible = false;
 
+            // show visual confirmation to the Patient
             lblConfirmation.Text = "You've scheduled an appointment with Dr. " + doctorName + " for " +
                 apt.Time.ToString("h:mm tt") + " on " + apt.Time.ToString("MMMM dd, yyyy") + ".";
 
@@ -287,6 +284,7 @@ namespace HospitalApp.MyStuff
             PopulateAppointments();
         }
 
+        // refreshes gridview to show all appointments
         private void PopulateAppointments()
         {
             var appointmentQuery =
@@ -295,7 +293,6 @@ namespace HospitalApp.MyStuff
                 join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
                 where patient.UserLoginName == username
                 select new { Time = appointment.Time, Doctor = doctor.FirstName + " " + doctor.LastName, Purpose = appointment.Purpose };
-
 
             GridView1.DataSource = appointmentQuery.ToList();
             GridView1.DataBind();

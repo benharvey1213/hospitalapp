@@ -6,7 +6,7 @@
         <p>
             <span style="font-size: x-large">Appointments</span></p>
         <p>
-            <asp:GridView ID="GridView1" HorizontalAlign="Center" HeaderText="Medication Name" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="620px" >
+            <asp:GridView ID="GridView1" HorizontalAlign="Center" HeaderText="Medication Name" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="620px" >
             </asp:GridView>
         </p>
     </div>
