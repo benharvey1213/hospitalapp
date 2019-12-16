@@ -50,13 +50,33 @@ namespace HospitalApp.MyStuff
         // search button for patients
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var patientQuery =
-                from patient in dbcontext.Patients
-                where (patient.FirstName + " " + patient.LastName).Contains(TextBox1.Text)
-                select new { Name = patient.FirstName + " " + patient.LastName , Username = patient.UserLoginName };
+            int textBoxInt = -1;
+            try
+            {
+                textBoxInt = Convert.ToInt32(TextBox1.Text);
 
-            GridView1.DataSource = patientQuery.ToList();
-            GridView1.DataBind();
+                var patientQuery =
+                    from patient in dbcontext.Patients
+                    where patient.PatientID == textBoxInt
+                    select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
+
+                GridView1.DataSource = patientQuery.ToList();
+                GridView1.DataBind();
+            }
+            catch
+            {
+                var patientQuery =
+                    from patient in dbcontext.Patients
+                    where (patient.FirstName + " " + patient.LastName).Contains(TextBox1.Text)
+                        || patient.UserLoginName.Contains(TextBox1.Text)
+                        || patient.PatientID.ToString() == TextBox1.Text
+                    select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
+
+                GridView1.DataSource = patientQuery.ToList();
+                GridView1.DataBind();
+            }
+
+            
         }
 
         // grid view of patient results
@@ -313,5 +333,20 @@ namespace HospitalApp.MyStuff
             return doctorQuery.First().Name;
         }
         #endregion
+
+        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button8_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

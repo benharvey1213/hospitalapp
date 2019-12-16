@@ -2,10 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>&nbsp;</p>
 
-    <p id="header" runat="server" style="font-size: large">View Patients</p>
+    <p id="header" runat="server" style="font-size: xx-large">Patients</p>
+    <p>
+        <asp:Button ID="Button8" runat="server" class="btn small" Text="View My Patients" Width="190px" OnClick="Button8_Click" />
+
+    </p>
+
+
     <p id="searchDiv" runat="server">
-        <asp:TextBox ID="TextBox1" runat="server" Width="263px"></asp:TextBox>
+        <asp:TextBox ID="TextBox1" runat="server" Width="263px" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
 &nbsp;<asp:Button ID="Button1" runat="server" class="btn" Text="Search" Width="131px" OnClick="Button1_Click" />
+        &nbsp;
+        <p>&nbsp;</p>
 
         <asp:GridView ID="GridView1" runat="server" datakeynames="Username" HorizontalAlign="Center" ShowHeader="False" AutoGenerateColumns="False" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="197px" >
             <Columns>
@@ -47,13 +55,12 @@
         </div>
         <p>&nbsp;</p>
         <p>
-            <asp:DropDownList ID="DropDownList1" runat="server" Width="164px">
+            <asp:DropDownList ID="DropDownList1" runat="server" Width="164px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
             </asp:DropDownList>
         </p>
         <p>&nbsp;</p>
         <p>
-            Reason for Appointment:</p>
-        <p>
+            Reason for Appointment:        <p>
             <asp:textbox runat="server" id="inputfield0" Width="514px" AutoCompleteType="Disabled" />
             </p>
         <p>&nbsp;</p>
