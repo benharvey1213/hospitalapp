@@ -18,8 +18,8 @@
     </p>
     <p>&nbsp;</p>
     <p id="buttonsDiv" runat="server">
-        <asp:Button ID="Button2" class="btn" runat="server" Text="Message" OnClick="Button2_Click" />
-        <asp:Button ID="Button3" class="btn" runat="server" Text="Make Appointment" OnClick="Button3_Click" />
+        <asp:Button ID="Button2" class="btn small" runat="server" Text="Message" OnClick="Button2_Click" style="font-size: medium" />
+        <asp:Button ID="Button3" class="btn small" runat="server" Text="Make Appointment" OnClick="Button3_Click" style="font-size: medium" />
         <p>&nbsp;</p>
     </p>
     <p id="messager" runat="server">

@@ -25,7 +25,7 @@ namespace HospitalApp.MyStuff
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
-            NameLabel.Text = name + ".";
+            //NameLabel.Text = name + ".";
 
             var appointmentQuery =
                 from appointment in dbcontext.Appointments

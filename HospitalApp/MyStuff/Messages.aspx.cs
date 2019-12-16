@@ -32,29 +32,50 @@ namespace HospitalApp.MyStuff
 
             PopulateMessageTable();
 
-            var doctorQuery =
+            // figure out whether this is for doctor or patient
+            var docQuery =
+                from doctor in dbcontext.Doctors
+                where doctor.UserLoginName == username
+                select doctor;
+
+            // patient
+            if (docQuery.Count() == 0)
+            {
+                btnSendDoctor.Visible = false;
+
+                var doctorQuery =
                 from doctor in dbcontext.Doctors
                 select new { Name = doctor.FirstName + " " + doctor.LastName, DoctorUserName = doctor.UserLoginName };
 
-            //var doctorList = doctorQuery.ToList();
+                //var doctorList = doctorQuery.ToList();
 
-            DropDownList1.DataSource = doctorQuery.ToList();
-            DropDownList1.DataTextField = "Name";
-            DropDownList1.DataValueField = "DoctorUserName";
-            DropDownList1.DataBind();
+                DropDownList1.DataSource = doctorQuery.ToList();
+                DropDownList1.DataTextField = "Name";
+                DropDownList1.DataValueField = "DoctorUserName";
+                DropDownList1.DataBind();
+            }
+
+            // doctor
+            else
+            {
+                messagingDiv.Visible = false;
+            }
+
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (TextBox2.Text == null || TextBox2.Text == "")
             {
-                ErrorLabel.Text = "Hey, looks like you forgot to write a message";
+                ErrorLabel.Text = "Hey, it looks like you forgot to write a message";
                 return;
             }
-            
+
             myMessager.SendMessage(DropDownList1.SelectedValue, thisUsername, TextBox2.Text);
 
             TextBox2.Text = "";
+            ErrorLabel.Text = "";
             PopulateMessageTable();
         }
 
@@ -100,6 +121,11 @@ namespace HospitalApp.MyStuff
         protected void Button4_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/Dashboard.aspx");
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/MyStuff/DoctorPatients.aspx");
         }
     }
 }
