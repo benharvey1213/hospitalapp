@@ -13,7 +13,8 @@ namespace HospitalApp.MyStuff
             newMessage.UserLoginNameTo = toName;
             newMessage.Message1 = message;
             newMessage.UserLoginNameFrom = fromName;
-            
+            newMessage.InFromBox = true;
+            newMessage.InToBox = true;
 
             dbcontext.Messages.Add(newMessage);
             dbcontext.SaveChanges();

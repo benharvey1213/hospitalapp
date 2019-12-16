@@ -39,6 +39,23 @@
             </Columns>
         </asp:GridView>
     </p>
+
+    <p>
+        &nbsp;</p>
+    <p>
+        <asp:Label ID="TableLabel2" runat="server" style="font-size: medium"></asp:Label>
+    </p>
+    <p>
+        <asp:GridView ID="GridView2" datakeynames="MessageID" CellSpacing="5" HorizontalAlign="Center" runat="server" OnRowDeleting="GridView2_RowDeleting" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="1049px" style="margin-bottom: 0px" OnSelectedIndexChanged="GridView2_SelectedIndexChanged">
+            <Columns>
+                <asp:BoundField DataField="Date" HeaderText="Date" />
+                <asp:BoundField DataField="Recipient" HeaderText="Recipient" />
+                <asp:BoundField DataField="Message" HeaderText="Message" />
+                <asp:CommandField ButtonType="Button" ShowDeleteButton="True" ControlStyle-CssClass="btn small red" />
+            </Columns>
+        </asp:GridView>
+    </p>
+
     <p>
         &nbsp;</p>
         <p>

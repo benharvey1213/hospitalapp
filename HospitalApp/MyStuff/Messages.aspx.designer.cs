@@ -96,6 +96,24 @@ namespace HospitalApp.MyStuff
         protected global::System.Web.UI.WebControls.GridView GridView1;
 
         /// <summary>
+        /// TableLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TableLabel2;
+
+        /// <summary>
+        /// GridView2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView2;
+
+        /// <summary>
         /// Button4 control.
         /// </summary>
         /// <remarks>
