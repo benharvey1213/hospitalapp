@@ -7,7 +7,7 @@
         <asp:Label ID="NameLabel" runat="server"></asp:Label>
         </span></p>
     <p>
-        <asp:GridView ID="GridView1" HorizontalAlign="Center" runat="server">
+        <asp:GridView ID="GridView1" HorizontalAlign="Center" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="885px">
         </asp:GridView>
     </p>
     <p>

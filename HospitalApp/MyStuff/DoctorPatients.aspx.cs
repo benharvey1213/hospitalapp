@@ -25,6 +25,7 @@ namespace HospitalApp.MyStuff
                 appointmentDiv.Visible = false;
                 confirmation.Visible = false;
                 messager.Visible = false;
+                patientInfoDiv.Visible = false;
             }
             try
             {
@@ -65,18 +66,28 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                var patientQuery =
-                    from patient in dbcontext.Patients
-                    where (patient.FirstName + " " + patient.LastName).Contains(TextBox1.Text)
-                        || patient.UserLoginName.Contains(TextBox1.Text)
-                        || patient.PatientID.ToString() == TextBox1.Text
-                    select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
+                if (TextBox1.Text.Trim() == "")
+                {
+                    var patientQuery =
+                        from patient in dbcontext.Patients
+                        select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
 
-                GridView1.DataSource = patientQuery.ToList();
-                GridView1.DataBind();
+                    GridView1.DataSource = patientQuery.ToList();
+                    GridView1.DataBind();
+                }
+                else
+                {
+                    var patientQuery =
+                        from patient in dbcontext.Patients
+                        where (patient.FirstName + " " + patient.LastName).Contains(TextBox1.Text)
+                            || patient.UserLoginName.Contains(TextBox1.Text)
+                            || patient.PatientID.ToString() == TextBox1.Text
+                        select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
+
+                    GridView1.DataSource = patientQuery.ToList();
+                    GridView1.DataBind();
+                }
             }
-
-            
         }
 
         // grid view of patient results
@@ -84,10 +95,31 @@ namespace HospitalApp.MyStuff
         {
             buttonsDiv.Visible = true;
             confirmation.Visible = false;
+
+            if (patientInfoDiv.Visible)
+            {
+                PopulatePatientInfo();
+            }
+
+            if (messager.Visible)
+            {
+                PopulateMessager();
+            }
         }
 
         // send message
         protected void Button2_Click(object sender, EventArgs e)
+        {
+            if (messager.Visible)
+            {
+                messager.Visible = false;
+                return;
+            }
+
+            PopulateMessager();
+        }
+
+        private void PopulateMessager()
         {
             string rowUser = null;
             try
@@ -96,8 +128,6 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                //lblErrorDiv.Visible = true;
-                //lblError.Text = "Must select a patient first";
                 return;
             }
 
@@ -334,19 +364,125 @@ namespace HospitalApp.MyStuff
         }
         #endregion
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void Button8_Click(object sender, EventArgs e)
         {
+            var doctorIDQuery =
+                from doctor in dbcontext.Doctors
+                where doctor.UserLoginName == username
+                select doctor.DoctorID;
+
+            int docId = doctorIDQuery.First();
+
+            var patientQuery =
+                    from patient in dbcontext.Patients
+                    where patient.DoctorID == docId
+                    select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
+
+            GridView1.DataSource = patientQuery.ToList();
+            GridView1.DataBind();
+        }
+
+        // view patient info
+        protected void Button7_Click(object sender, EventArgs e)
+        {
+            if (patientInfoDiv.Visible)
+            {
+                patientInfoDiv.Visible = false;
+                return;
+            }
+
+            patientInfoDiv.Visible = true;
+
+            PopulatePatientInfo();
+        }
+
+        private void PopulatePatientInfo()
+        {
+            string patientUsername = GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString();
+
+            // patient name
+            string rowUser = null;
+            try
+            {
+                rowUser = patientUsername;
+            }
+            catch
+            {
+                return;
+            }
+
+            lblPatientName.Text = "Patient Name: " + PatientUsernameToFullName(rowUser);
+
+            // patient email
+            var patientEmailQuery =
+                from patient in dbcontext.Patients
+                where patient.UserLoginName == patientUsername
+                select patient.Email;
+
+            string patientEmail = patientEmailQuery.First();
+
+            lblEmail.Text = "Patient Email: " + patientEmail;
+
+            // tests
+            var testsQuery =
+                from testPair in dbcontext.TestPairs
+                join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
+                join test in dbcontext.Tests on testPair.TestID equals test.TestID
+                join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
+                where patient.UserLoginName == patientUsername
+                select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
+
+            GridView2.DataSource = testsQuery.ToList();
+            GridView2.DataBind();
+
+            if (testsQuery.Count() == 0)
+            {
+                testResultsName.InnerText = "No test results found";
+            }
+
+            // appointment history
+            var historyQuery =
+                from appointment in dbcontext.Appointments
+                join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
+                where patient.UserLoginName == patientUsername
+                select new { Date = appointment.Time, Purpose = appointment.Purpose };
+
+            GridView3.DataSource = historyQuery.ToList();
+            GridView3.DataBind();
+
+            if (historyQuery.Count() == 0)
+            {
+                lblHistory.Text = "No past appointments found";
+            }
+            else
+            {
+                lblHistory.Text = "Appointment History";
+            }
+
+            // medications
+            var medicationQuery =
+                from medicationPair in dbcontext.MedicationPairs
+                join patient in dbcontext.Patients on medicationPair.PatientID equals patient.PatientID
+                join medication in dbcontext.Medications on medicationPair.MedicationID equals medication.MedicationID
+                where patient.UserLoginName == patientUsername
+                select medication.MedicationName;
+
+
+            GridView4.DataSource = medicationQuery.ToList();
+            GridView4.DataBind();
+
+            if (medicationQuery.Count() == 0)
+            {
+                lblMedication.Text = "No medications found";
+            }
+            else
+            {
+                lblMedication.Text = "Current Medications";
+            }
+
+
 
         }
+
     }
 }
