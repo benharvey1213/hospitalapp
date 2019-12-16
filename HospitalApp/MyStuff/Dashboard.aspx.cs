@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace HospitalApp.MyStuff
 {
+    // the Dashboard page only serves as redirection page to the appropriate Doctor.aspx or Patient.aspx dashboard
     public partial class Dashboard : System.Web.UI.Page
     {
         private HospitalDBEntities dbcontext = new HospitalDBEntities();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // ensures user is logged in
             string username = null;
-            string name = null;
             try
             {
                 username = Request.Cookies["username"].Value;
             }
             catch
             {
-                Response.Cookies["redirectedFrom"].Value = "/MyStuff/Dashboard.aspx";
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
+            // LINQ query to see if the logged in user is a Patient
             var patientQuery =
                 from patient in dbcontext.Patients
                 where patient.UserLoginName == username
@@ -35,6 +32,7 @@ namespace HospitalApp.MyStuff
                 Response.Redirect("/MyStuff/Patient.aspx", false);
             }
 
+            // LINQ query to see if the logged in user is a Doctor
             var doctorQuery =
                 from doctor in dbcontext.Doctors
                 where doctor.UserLoginName == username

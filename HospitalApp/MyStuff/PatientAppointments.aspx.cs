@@ -24,7 +24,6 @@ namespace HospitalApp.MyStuff
             }
             catch
             {
-                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 

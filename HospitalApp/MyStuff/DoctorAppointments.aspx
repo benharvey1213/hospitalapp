@@ -2,8 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <p>&nbsp;</p>
     <p>
-        <span style="font-size: x-large">Appointments</span></p>
+        <span style="font-size: x-large">Appointments</span>
+
+    </p>
     <p>&nbsp;</p>
+
     <p>
         <asp:GridView ID="GridView1" HorizontalAlign="Center" HeaderText="Medication Name" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="1049px" >
             <Columns>
@@ -24,9 +27,11 @@
     </div>
 
     <p>&nbsp;</p>
+
     <p>
         <asp:Button ID="Button4" runat="server" CssClass="btn2" Text="Back" Width="131px" OnClick="Button4_Click" />
     </p>
+
     <p>&nbsp;</p>
 
 </asp:Content>

@@ -32,7 +32,5 @@
         <asp:HyperLink ID="HyperLink1" runat="server">Don&#39;t Have An Account?</asp:HyperLink>
     </h3>--%>
     <p>
-        &nbsp;</p>
-    <p>
     </p>
 </asp:Content>

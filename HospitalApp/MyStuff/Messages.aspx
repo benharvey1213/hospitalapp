@@ -10,7 +10,7 @@
                 <asp:DropDownList ID="DropDownList1" runat="server"/>
             </p>
             <p>
-                <asp:TextBox ID="TextBox2" runat="server" autocomplete="off" Width="644px"/>
+                <asp:TextBox ID="TextBox2" runat="server" autocomplete="off" AutoCompleteType="Disabled" Width="644px"/>
             </p>
    
         <p>

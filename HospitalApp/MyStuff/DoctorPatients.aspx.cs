@@ -81,7 +81,6 @@ namespace HospitalApp.MyStuff
                         from patient in dbcontext.Patients
                         where (patient.FirstName + " " + patient.LastName).Contains(TextBox1.Text)
                             || patient.UserLoginName.Contains(TextBox1.Text)
-                            || patient.PatientID.ToString() == TextBox1.Text
                         select new { Name = patient.FirstName + " " + patient.LastName, Username = patient.UserLoginName };
 
                     GridView1.DataSource = patientQuery.ToList();

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace HospitalApp.MyStuff
 {
@@ -11,32 +6,34 @@ namespace HospitalApp.MyStuff
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string username = null;
+            // ensures a user is logged in
             string name = null;
             try
             {
-                username = Request.Cookies["username"].Value;
                 name = Request.Cookies["name"].Value;
             }
             catch
             {
-                Response.Cookies["redirectedFrom"].Value = "/MyStuff/PatientMedications.aspx";
                 Response.Redirect("/MyStuff/Login.aspx", false);
             }
 
+            // sets a label's text that welcomes the Doctor to the website
             GreetingLabel.Text = "Welcome, " + name + ".";
-
         }
+
+        // Appointments
         protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/DoctorAppointments.aspx");
         }
 
+        // Patients
         protected void Button2_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/DoctorPatients.aspx");
         }
 
+        // Messages
         protected void Button3_Click(object sender, EventArgs e)
         {
             Response.Redirect("/MyStuff/Messages.aspx");
