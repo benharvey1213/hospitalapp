@@ -54,14 +54,24 @@
         <p>
             <asp:Label ID="lblEmail" runat="server" Text=""></asp:Label>
         </p>
-        <p>&nbsp;</p>
 
-        <p id="testResultsName" runat="server">
+         <p>
+            <asp:Label ID="lblAddress" runat="server" Text=""></asp:Label>
+        </p>
+
+        <p>
+            <asp:Label ID="lblPhone" runat="server" Text=""></asp:Label>
+        </p>
+
+        <%--<p>&nbsp;</p>--%>
+
+        
+        <%--<p id="testResultsName" runat="server">
             Test Results</p>
         <p>
             <asp:GridView ID="GridView2" HorizontalAlign="Center" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="719px">
             </asp:GridView>     
-        </p>
+        </p>--%>
 
         <p>&nbsp;</p>
 
@@ -74,6 +84,7 @@
                 <Columns>
                     <asp:BoundField DataField="Date" HeaderText="Date" />
                     <asp:BoundField DataField="Purpose" HeaderText="Purpose" />
+                    <asp:BoundField DataField="Summary" HeaderText="Visit Summary" />
                 </Columns>
             </asp:GridView>     
         </p>

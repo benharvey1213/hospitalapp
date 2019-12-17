@@ -420,7 +420,7 @@ namespace HospitalApp.MyStuff
                 return;
             }
 
-            lblPatientName.Text = "Patient Name: " + PatientUsernameToFullName(rowUser);
+            lblPatientName.Text = PatientUsernameToFullName(rowUser);
 
             // patient email
             var patientEmailQuery =
@@ -430,31 +430,49 @@ namespace HospitalApp.MyStuff
 
             string patientEmail = patientEmailQuery.First();
 
-            lblEmail.Text = "Patient Email: " + patientEmail;
+            lblEmail.Text = patientEmail;
+
+            // address
+            var patientAddressQuery =
+                from patient in dbcontext.Patients
+                where patient.UserLoginName == patientUsername
+                select patient.Address;
+
+            lblAddress.Text = patientAddressQuery.First();
+
+            // phone
+            var patientPhoneQuery =
+                from patient in dbcontext.Patients
+                where patient.UserLoginName == patientUsername
+                select patient.Phone;
+
+            lblPhone.Text = patientPhoneQuery.First();
+
 
             // tests
-            var testsQuery =
-                from testPair in dbcontext.TestPairs
-                join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
-                join test in dbcontext.Tests on testPair.TestID equals test.TestID
-                join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
-                where patient.UserLoginName == patientUsername
-                select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
+            //var testsQuery =
+            //    from testPair in dbcontext.TestPairs
+            //    join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
+            //    join test in dbcontext.Tests on testPair.TestID equals test.TestID
+            //    join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
+            //    where patient.UserLoginName == patientUsername
+            //    select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
 
-            GridView2.DataSource = testsQuery.ToList();
-            GridView2.DataBind();
+            //GridView2.DataSource = testsQuery.ToList();
+            //GridView2.DataBind();
 
-            if (testsQuery.Count() == 0)
-            {
-                testResultsName.InnerText = "No test results found";
-            }
+            //if (testsQuery.Count() == 0)
+            //{
+            //    testResultsName.InnerText = "No test results found";
+            //}
 
             // appointment history
             var historyQuery =
                 from appointment in dbcontext.Appointments
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
                 where patient.UserLoginName == patientUsername
-                select new { Date = appointment.Time, Purpose = appointment.Purpose };
+                orderby appointment.Time descending
+                select new { Date = appointment.Time, Purpose = appointment.Purpose , Summary = appointment.VisitSummary };
 
             GridView3.DataSource = historyQuery.ToList();
             GridView3.DataBind();

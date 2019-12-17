@@ -11,6 +11,11 @@ namespace HospitalApp.MyStuff
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                updateTestResultsDiv.Visible = false;
+            }
+
             // ensures a user is logged in
             try
             {
@@ -49,6 +54,7 @@ namespace HospitalApp.MyStuff
                 join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
                 where doctor.UserLoginName == username
+                orderby appointment.Time descending
                 select new { Date = appointment.Time, Patient = patient.FirstName + " " + patient.LastName, Purpose = appointment.Purpose , AppointmentID = appointment.AppointmentID };
 
             GridView2.DataSource = appointmentQuery2.ToList();
@@ -115,6 +121,44 @@ namespace HospitalApp.MyStuff
 
             dbcontext.SaveChanges();
             PopulateAppointmentsGridView();
+        }
+
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateTestResultsDiv.Visible = true;
+
+            int aptID = Convert.ToInt32(GridView2.DataKeys[GridView2.SelectedIndex].Value);
+
+            var summaryQuery =
+                from appointment in dbcontext.Appointments
+                where appointment.AppointmentID == aptID
+                select appointment.VisitSummary;
+
+            if (summaryQuery.First() == null)
+            {
+                TextBox1.Text = "";
+            } else
+            {
+                TextBox1.Text = summaryQuery.First().Trim();
+            }
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            int aptID = Convert.ToInt32(GridView2.DataKeys[GridView2.SelectedIndex].Value);
+
+            var summaryQuery =
+                from appointment in dbcontext.Appointments
+                where appointment.AppointmentID == aptID
+                select appointment;
+
+            foreach(Appointment apt in summaryQuery)
+            {
+                apt.VisitSummary = TextBox1.Text;
+            }
+
+            dbcontext.SaveChanges();
+
         }
     }
 }
