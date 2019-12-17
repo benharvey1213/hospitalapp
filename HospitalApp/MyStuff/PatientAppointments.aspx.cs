@@ -287,11 +287,13 @@ namespace HospitalApp.MyStuff
         // refreshes gridview to show all appointments
         private void PopulateAppointments()
         {
+            DateTime today = DateTime.Now;
+
             var appointmentQuery =
                 from appointment in dbcontext.Appointments
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
                 join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
-                where patient.UserLoginName == username
+                where patient.UserLoginName == username && appointment.Time >= today
                 select new { Time = appointment.Time, Doctor = doctor.FirstName + " " + doctor.LastName, Purpose = appointment.Purpose };
 
             GridView1.DataSource = appointmentQuery.ToList();
