@@ -4,6 +4,8 @@
 
     <p style="font-size: x-large">
         Medications</p>
+    <p id="noMeds" runat="server">
+        No Medications Found</p>
     <p>
         <asp:GridView ID="GridView1" HorizontalAlign="Center" ShowHeader="false" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal">
         </asp:GridView>
@@ -14,6 +16,9 @@
         &nbsp;</p>
     <p style="font-size: x-large">
         Test Results</p>
+
+    <p id="noTests" runat="server">
+        No Test Results Found</p>
     <p>
         <asp:GridView ID="GridView2" CssClass="gview" HorizontalAlign="Center" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="596px">
         </asp:GridView>

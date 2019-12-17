@@ -34,16 +34,32 @@ namespace HospitalApp.MyStuff
             GridView1.DataSource = medicationQuery.ToList();
             GridView1.DataBind();
 
+            if (medicationQuery.Count() != 0)
+            {
+                noMeds.Visible = false;
+            }
+
+            //var testsQuery =
+            //    from testPair in dbcontext.TestPairs
+            //    join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
+            //    join test in dbcontext.Tests on testPair.TestID equals test.TestID
+            //    join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
+            //    where patient.UserLoginName == username
+            //    select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
+
             var testsQuery =
-                from testPair in dbcontext.TestPairs
-                join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
-                join test in dbcontext.Tests on testPair.TestID equals test.TestID
-                join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
-                where patient.UserLoginName == username
-                select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
+                from appointment in dbcontext.Appointments
+                join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
+                where patient.UserLoginName == username /*&& appointment.VisitSummary != null*/
+                select new { Date = appointment.Time , Purpose = appointment.Purpose , Results = appointment.VisitSummary };
 
             GridView2.DataSource = testsQuery.ToList();
             GridView2.DataBind();
+
+            if (testsQuery.Count() != 0)
+            {
+                noTests.Visible = false;
+            }
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)

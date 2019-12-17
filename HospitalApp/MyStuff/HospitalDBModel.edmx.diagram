@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="HospitalDBModel.Medication" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HospitalDBModel.Message" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HospitalDBModel.Patient" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HospitalDBModel.Test" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HospitalDBModel.User" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HospitalDBModel.MedicationPair" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HospitalDBModel.TestPair" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />

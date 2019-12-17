@@ -80,15 +80,6 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPair
           <Property Name="PatientID" Type="int" Nullable="false" />
           <Property Name="TestID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Tests">
-          <Key>
-            <PropertyRef Name="TestID" />
-          </Key>
-          <Property Name="TestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TestResults" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="TestDate" Type="datetime" Nullable="false" />
-          <Property Name="DoctorID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserLoginName" />
@@ -102,7 +93,6 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPair
           <EntitySet Name="Medications" EntityType="Self.Medications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MedicationPairs" EntityType="Self.MedicationPairs" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -176,15 +166,6 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="TestID" />
-          </Key>
-          <Property Name="TestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestResults" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="TestDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DoctorID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserLoginName" />
@@ -214,7 +195,6 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <EntitySet Name="Medications" EntityType="Self.Medication" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
-          <EntitySet Name="Tests" EntityType="Self.Test" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="MedicationPairs" EntityType="Self.MedicationPair" />
           <EntitySet Name="TestPairs" EntityType="Self.TestPair" />
@@ -282,16 +262,6 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tests">
-            <EntityTypeMapping TypeName="HospitalDBModel.Test">
-              <MappingFragment StoreEntitySet="Tests">
-                <ScalarProperty Name="TestID" ColumnName="TestID" />
-                <ScalarProperty Name="TestResults" ColumnName="TestResults" />
-                <ScalarProperty Name="TestDate" ColumnName="TestDate" />
-                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -325,9 +325,6 @@
     <Compile Include="MyStuff\PatientMedicationsTests.aspx.designer.cs">
       <DependentUpon>PatientMedicationsTests.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MyStuff\Test.cs">
-      <DependentUpon>HospitalDBModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="MyStuff\TestPair.cs">
       <DependentUpon>HospitalDBModel.tt</DependentUpon>
     </Compile>
