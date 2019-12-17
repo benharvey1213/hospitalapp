@@ -39,14 +39,6 @@ namespace HospitalApp.MyStuff
                 noMeds.Visible = false;
             }
 
-            //var testsQuery =
-            //    from testPair in dbcontext.TestPairs
-            //    join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
-            //    join test in dbcontext.Tests on testPair.TestID equals test.TestID
-            //    join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
-            //    where patient.UserLoginName == username
-            //    select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
-
             var testsQuery =
                 from appointment in dbcontext.Appointments
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID

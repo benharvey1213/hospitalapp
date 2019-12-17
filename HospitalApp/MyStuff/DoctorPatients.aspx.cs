@@ -448,24 +448,6 @@ namespace HospitalApp.MyStuff
 
             lblPhone.Text = patientPhoneQuery.First();
 
-
-            // tests
-            //var testsQuery =
-            //    from testPair in dbcontext.TestPairs
-            //    join patient in dbcontext.Patients on testPair.PatientID equals patient.PatientID
-            //    join test in dbcontext.Tests on testPair.TestID equals test.TestID
-            //    join doctor in dbcontext.Doctors on test.DoctorID equals doctor.DoctorID
-            //    where patient.UserLoginName == patientUsername
-            //    select new { Date = test.TestDate, Doctor = doctor.FirstName + " " + doctor.LastName, Results = test.TestResults };
-
-            //GridView2.DataSource = testsQuery.ToList();
-            //GridView2.DataBind();
-
-            //if (testsQuery.Count() == 0)
-            //{
-            //    testResultsName.InnerText = "No test results found";
-            //}
-
             // appointment history
             var historyQuery =
                 from appointment in dbcontext.Appointments
@@ -492,7 +474,7 @@ namespace HospitalApp.MyStuff
                 join patient in dbcontext.Patients on medicationPair.PatientID equals patient.PatientID
                 join medication in dbcontext.Medications on medicationPair.MedicationID equals medication.MedicationID
                 where patient.UserLoginName == patientUsername
-                select medication.MedicationName;
+                select new { MedicationName = medication.MedicationName };
 
 
             GridView4.DataSource = medicationQuery.ToList();
@@ -506,6 +488,26 @@ namespace HospitalApp.MyStuff
             {
                 lblMedication.Text = "Current Medications";
             }
+
+            var medicationsQuery =
+                from medication in dbcontext.Medications
+                select new { MedicationName = medication.MedicationName , MedicationID = medication.MedicationID };
+
+            DropDownList2.DataTextField = "MedicationName";
+            DropDownList2.DataValueField = "MedicationID";
+            DropDownList2.DataSource = medicationsQuery.ToList();
+            DropDownList2.DataBind();
+
+        }
+
+        protected void Button9_Click(object sender, EventArgs e)
+        {
+            MedicationPair medPair = new MedicationPair();
+            medPair.PatientID = PatientUsernameToID(GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString());
+            medPair.MedicationID = Convert.ToInt32(DropDownList2.SelectedItem.Value);
+            dbcontext.MedicationPairs.Add(medPair);
+            dbcontext.SaveChanges();
+            PopulatePatientInfo();
         }
     }
 }
