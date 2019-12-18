@@ -131,6 +131,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="HospitalDB.mdf" />
+    <Content Include="HospitalDB_log.ldf">
+      <DependentUpon>HospitalDB.mdf</DependentUpon>
+    </Content>
     <Content Include="MyStuff\Dashboard.aspx" />
     <EntityDeploy Include="MyStuff\HospitalDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
