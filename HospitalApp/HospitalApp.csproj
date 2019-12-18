@@ -160,7 +160,6 @@
     <Content Include="MyStuff\Login.aspx" />
     <Content Include="MyStuff\Messages.aspx" />
     <Content Include="MyStuff\Patient.aspx" />
-    <Content Include="MyStuff\CreateAccount.aspx" />
     <Content Include="MyStuff\PatientAppointments.aspx" />
     <Content Include="MyStuff\PatientMedicationsTests.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -304,13 +303,6 @@
     </Compile>
     <Compile Include="MyStuff\Patient.aspx.designer.cs">
       <DependentUpon>Patient.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MyStuff\CreateAccount.aspx.cs">
-      <DependentUpon>CreateAccount.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MyStuff\CreateAccount.aspx.designer.cs">
-      <DependentUpon>CreateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="MyStuff\Patient.cs">
       <DependentUpon>HospitalDBModel.tt</DependentUpon>
