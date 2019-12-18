@@ -16,5 +16,6 @@ namespace HospitalApp.MyStuff
     {
         public int PatientID { get; set; }
         public int MedicationID { get; set; }
+        public int PairID { get; set; }
     }
 }

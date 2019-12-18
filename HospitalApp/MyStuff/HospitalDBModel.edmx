@@ -28,13 +28,11 @@
           <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.MedicationPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MedicationPairs">
           <Key>
-            <PropertyRef Name="PatientID" />
-            <PropertyRef Name="MedicationID" />
+            <PropertyRef Name="PairID" />
           </Key>
+          <Property Name="PairID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PatientID" Type="int" Nullable="false" />
           <Property Name="MedicationID" Type="int" Nullable="false" />
         </EntityType>
@@ -90,16 +88,11 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPair
         <EntityContainer Name="HospitalDBModelStoreContainer">
           <EntitySet Name="Appointments" EntityType="Self.Appointments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicationPairs" EntityType="Self.MedicationPairs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medications" EntityType="Self.Medications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MedicationPairs" EntityType="Self.MedicationPairs" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[MedicationPairs].[PatientID] AS [PatientID], 
-[MedicationPairs].[MedicationID] AS [MedicationID]
-FROM [dbo].[MedicationPairs] AS [MedicationPairs]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="TestPairs" EntityType="Self.TestPairs" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [TestPairs].[PatientID] AS [PatientID], 
@@ -177,9 +170,11 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <Key>
             <PropertyRef Name="PatientID" />
             <PropertyRef Name="MedicationID" />
+            <PropertyRef Name="PairID" />
           </Key>
           <Property Name="PatientID" Type="Int32" Nullable="false" />
           <Property Name="MedicationID" Type="Int32" Nullable="false" />
+          <Property Name="PairID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="TestPair">
           <Key>
@@ -276,6 +271,7 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <EntitySetMapping Name="MedicationPairs">
             <EntityTypeMapping TypeName="HospitalDBModel.MedicationPair">
               <MappingFragment StoreEntitySet="MedicationPairs">
+                <ScalarProperty Name="PairID" ColumnName="PairID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
               </MappingFragment>
