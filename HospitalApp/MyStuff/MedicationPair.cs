@@ -14,8 +14,8 @@ namespace HospitalApp.MyStuff
     
     public partial class MedicationPair
     {
+        public int PairID { get; set; }
         public int PatientID { get; set; }
         public int MedicationID { get; set; }
-        public int PairID { get; set; }
     }
 }

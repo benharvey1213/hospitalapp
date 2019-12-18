@@ -66,7 +66,7 @@
         <p style="font-size: medium">
             Purpose for Appointment</p>
         <p>
-            <asp:TextBox ID="textBoxPurpose" runat="server" Width="380px"></asp:TextBox>
+            <asp:TextBox ID="textBoxPurpose" AutoCompleteType="Disabled" runat="server" Width="380px"></asp:TextBox>
 
         </p>
         <p>

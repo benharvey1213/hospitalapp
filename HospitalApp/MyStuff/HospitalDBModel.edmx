@@ -68,16 +68,6 @@
           <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="UserLoginName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPairs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="TestPairs">
-          <Key>
-            <PropertyRef Name="PatientID" />
-            <PropertyRef Name="TestID" />
-          </Key>
-          <Property Name="PatientID" Type="int" Nullable="false" />
-          <Property Name="TestID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserLoginName" />
@@ -93,12 +83,6 @@ warning 6002: The table/view 'C:\USERS\BENHA\DESKTOP\HOSPITALDB.MDF.dbo.TestPair
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TestPairs" EntityType="Self.TestPairs" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[TestPairs].[PatientID] AS [PatientID], 
-[TestPairs].[TestID] AS [TestID]
-FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -166,24 +150,6 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <Property Name="UserLoginName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="UserLoginPass" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="MedicationPair">
-          <Key>
-            <PropertyRef Name="PatientID" />
-            <PropertyRef Name="MedicationID" />
-            <PropertyRef Name="PairID" />
-          </Key>
-          <Property Name="PatientID" Type="Int32" Nullable="false" />
-          <Property Name="MedicationID" Type="Int32" Nullable="false" />
-          <Property Name="PairID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="TestPair">
-          <Key>
-            <PropertyRef Name="PatientID" />
-            <PropertyRef Name="TestID" />
-          </Key>
-          <Property Name="PatientID" Type="Int32" Nullable="false" />
-          <Property Name="TestID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Appointments" EntityType="Self.Appointment" />
           <EntitySet Name="Doctors" EntityType="Self.Doctor" />
@@ -191,9 +157,16 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="MedicationPairs" EntityType="Self.MedicationPair" />
-          <EntitySet Name="TestPairs" EntityType="Self.TestPair" />
+          <EntitySet Name="MedicationPairs" EntityType="HospitalDBModel.MedicationPair" />
         </EntityContainer>
+        <EntityType Name="MedicationPair">
+          <Key>
+            <PropertyRef Name="PairID" />
+          </Key>
+          <Property Name="PairID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="MedicationID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -271,17 +244,9 @@ FROM [dbo].[TestPairs] AS [TestPairs]</DefiningQuery>
           <EntitySetMapping Name="MedicationPairs">
             <EntityTypeMapping TypeName="HospitalDBModel.MedicationPair">
               <MappingFragment StoreEntitySet="MedicationPairs">
-                <ScalarProperty Name="PairID" ColumnName="PairID" />
-                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="MedicationID" ColumnName="MedicationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TestPairs">
-            <EntityTypeMapping TypeName="HospitalDBModel.TestPair">
-              <MappingFragment StoreEntitySet="TestPairs">
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
-                <ScalarProperty Name="TestID" ColumnName="TestID" />
+                <ScalarProperty Name="PairID" ColumnName="PairID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

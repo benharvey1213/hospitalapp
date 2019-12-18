@@ -63,16 +63,6 @@
             <asp:Label ID="lblPhone" runat="server" Text=""></asp:Label>
         </p>
 
-        <%--<p>&nbsp;</p>--%>
-
-        
-        <%--<p id="testResultsName" runat="server">
-            Test Results</p>
-        <p>
-            <asp:GridView ID="GridView2" HorizontalAlign="Center" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" Width="719px">
-            </asp:GridView>     
-        </p>--%>
-
         <p>&nbsp;</p>
 
         <p>
@@ -96,7 +86,7 @@
         </p>
 
         <p>
-        <asp:GridView ID="GridView4" HorizontalAlign="Center" ShowHeader="False" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" Width="307px">
+        <asp:GridView ID="GridView4" HorizontalAlign="Center" DataKeyNames="MedicationID" OnRowDeleting="GridView4_RowDeleting" ShowHeader="False" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="30" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" Width="261px">
             <Columns>
                 <asp:BoundField DataField="MedicationName" HeaderText="Name" />
                 <asp:CommandField ShowDeleteButton="True" ControlStyle-CssClass="btn red small" />
@@ -106,7 +96,7 @@
         <p>
             <asp:DropDownList ID="DropDownList2" runat="server">
             </asp:DropDownList>
-            <asp:Button ID="Button9" runat="server" Text="Add Medication" OnClick="Button9_Click" />
+            <asp:Button ID="Button9" CssClass="btn small" runat="server" Text="Add Medication" OnClick="Button9_Click" />
         </p>
 
         <p>&nbsp;</p>

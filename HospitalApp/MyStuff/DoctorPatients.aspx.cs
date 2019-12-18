@@ -474,7 +474,7 @@ namespace HospitalApp.MyStuff
                 join patient in dbcontext.Patients on medicationPair.PatientID equals patient.PatientID
                 join medication in dbcontext.Medications on medicationPair.MedicationID equals medication.MedicationID
                 where patient.UserLoginName == patientUsername
-                select new { MedicationName = medication.MedicationName };
+                select new { MedicationName = medication.MedicationName , MedicationID = medication.MedicationID};
 
 
             GridView4.DataSource = medicationQuery.ToList();
@@ -505,7 +505,28 @@ namespace HospitalApp.MyStuff
             MedicationPair medPair = new MedicationPair();
             medPair.PatientID = PatientUsernameToID(GridView1.DataKeys[GridView1.SelectedRow.RowIndex].Value.ToString());
             medPair.MedicationID = Convert.ToInt32(DropDownList2.SelectedItem.Value);
+
             dbcontext.MedicationPairs.Add(medPair);
+            dbcontext.SaveChanges();
+            PopulatePatientInfo();
+        }
+
+        protected void GridView4_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int rowNum = Convert.ToInt32(e.RowIndex);
+            int rowID = Convert.ToInt32(GridView4.DataKeys[rowNum].Value);
+
+            // LINQ Query to select medicationpair to remove
+            var medPairQuery =
+                from medPair in dbcontext.MedicationPairs
+                where medPair.MedicationID == rowID
+                select medPair;
+
+            foreach (var medPair in medPairQuery)
+            {
+                dbcontext.MedicationPairs.Remove(medPair);
+            }
+
             dbcontext.SaveChanges();
             PopulatePatientInfo();
         }

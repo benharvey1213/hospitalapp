@@ -32,6 +32,5 @@ namespace HospitalApp.MyStuff
         public DbSet<Patient> Patients { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<MedicationPair> MedicationPairs { get; set; }
-        public DbSet<TestPair> TestPairs { get; set; }
     }
 }

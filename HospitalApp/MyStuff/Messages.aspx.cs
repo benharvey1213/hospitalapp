@@ -120,6 +120,7 @@ namespace HospitalApp.MyStuff
             var messageQuery =
                 from message in dbcontext.Messages
                 where message.UserLoginNameTo == thisUsername && message.InToBox == true
+                orderby message.Date descending
                 select new { Date = message.Date, Sender = message.UserLoginNameFrom, Message = message.Message1 , MessageID = message.MessageID};
 
             if (messageQuery.Count() == 0)
@@ -138,6 +139,7 @@ namespace HospitalApp.MyStuff
             var sentMessageQuery = 
                 from message in dbcontext.Messages
                 where message.UserLoginNameFrom == thisUsername && message.InFromBox == true
+                orderby message.Date descending
                 select new { Date = message.Date, Recipient = message.UserLoginNameTo, Message = message.Message1, MessageID = message.MessageID };
 
             if (sentMessageQuery.Count() == 0)

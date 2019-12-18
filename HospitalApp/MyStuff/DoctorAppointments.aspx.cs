@@ -53,7 +53,7 @@ namespace HospitalApp.MyStuff
                 from appointment in dbcontext.Appointments
                 join doctor in dbcontext.Doctors on appointment.DoctorID equals doctor.DoctorID
                 join patient in dbcontext.Patients on appointment.PatientID equals patient.PatientID
-                where doctor.UserLoginName == username
+                where doctor.UserLoginName == username && appointment.Time < today
                 orderby appointment.Time descending
                 select new { Date = appointment.Time, Patient = patient.FirstName + " " + patient.LastName, Purpose = appointment.Purpose , AppointmentID = appointment.AppointmentID };
 
